@@ -15,7 +15,7 @@ for fname in stdfiles
     end
 end
 if !have_std
-    fname = joinpath(tempdir(), "standard_test_images.zip")
+    fname = joinpath(Pkg.dir(), "TestImages", "standard_test_images.zip")
     download("http://www.ece.utk.edu/~gonzalez/ipweb2e/downloads/standard_test_images/standard_test_images.zip", fname)
     r = ZipFile.Reader(fname)
     for f in r.files
@@ -27,6 +27,7 @@ if !have_std
         end
     end
     close(r)
+    rm(fname)
 end
 
 # Additional standard files
