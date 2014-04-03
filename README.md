@@ -6,6 +6,12 @@ This package provides a convenient Julia interface for loading
 standard named test images. This is to be used in conjunction with the
 [Images](https://github.com/timholy/Images.jl) package.
 
+## Installation
+
+On Linux and OSX, this should install automatically.
+
+On Windows, the `download` command, used to download images from the archives, is not fully supported. You can manually download and unzip the files listed in `deps\build.jl` and place them in `TestImages\images`.
+
 ## Usage
 
 ```
