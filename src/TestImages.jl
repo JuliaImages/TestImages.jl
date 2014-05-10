@@ -17,7 +17,7 @@ function testimage(filename, ops...)
                 break
             end
         end
-        havefile || error("$filename not found")
+        havefile || error("$filename not found. Here are the contents of the images/ directory:\n$fls")
     end
     imread(imagefile, ops...)
 end
