@@ -37,7 +37,8 @@ remotedict = [
     "moonsurface.tiff" => "http://sipi.usc.edu/database/download.php?vol=misc&img=5.1.09",
     "mandrill.tiff" => "http://sipi.usc.edu/database/download.php?vol=misc&img=4.2.03",
     "autumn_leaves.png" => "http://www.imagemagick.org/Usage/images/autumn_leaves.png",
-    "earth_apollo17.jpg" => "http://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg"
+    "earth_apollo17.jpg" => "http://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg",
+    "toucan.png" => "http://www.libpng.org/pub/png/img_png/stefan_full_rgba.png"
 ]
 
 for (k, v) in remotedict
