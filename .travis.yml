@@ -14,4 +14,4 @@ before_install:
   - sudo apt-get install libpcre3-dev julia -y
   - sudo apt-get install curl
 script:
-  - julia -e 'Pkg.init(); Pkg.clone(pwd()); Pkg.test("TestImages")'
+  - julia -e 'Pkg.init(); Pkg.clone(pwd()); Pkg.build("TestImages"); Pkg.test("TestImages")'
