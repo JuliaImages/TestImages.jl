@@ -3,7 +3,8 @@
 [![Build Status](https://travis-ci.org/timholy/TestImages.jl.png)](https://travis-ci.org/timholy/TestImages.jl)
 
 This package provides a convenient Julia interface for loading
-standard named test images. This is to be used in conjunction with the
+[standard named test images](https://en.wikipedia.org/wiki/Standard_test_image).
+This is to be used in conjunction with the
 [Images](https://github.com/timholy/Images.jl) package.
 
 ## Installation
