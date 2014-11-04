@@ -9,7 +9,7 @@ This is to be used in conjunction with the
 
 ## Installation
 
-On Linux and OSX, this should install automatically.
+On Linux and OSX, this should install automatically. If you find yourself missing most of the images described below, please try `Pkg.build("TestImages")`, which should trigger another attempt to download the images.
 
 On Windows, the `download` command, used to download images from the archives, is not fully supported. You can manually download and unzip the files listed in `deps\build.jl` and place them in `TestImages\images`.
 
