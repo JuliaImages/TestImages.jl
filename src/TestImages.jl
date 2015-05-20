@@ -1,5 +1,6 @@
 module TestImages
 using Images
+using Compat
 
 export testimage
 
@@ -11,7 +12,7 @@ function testimage(filename, ops...)
         fls = readdir(imagedir)
         havefile = false
         for f in fls
-            if beginswith(f, filename)
+            if startswith(f, filename)
                 imagefile = joinpath(imagedir, f)
                 havefile = true
                 break
