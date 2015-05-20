@@ -75,6 +75,8 @@ or databases. Here is a list of the currently-supported images:
 
 `pirate`
 
+`toucan` (8-bit RGBA)
+
 `walkbridge`
 
 `woman_blonde`
