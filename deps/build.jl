@@ -48,7 +48,7 @@ remotedict = @compat Dict(
     "m51.tif" => "http://imagej.nih.gov/ij/images/m51.tif",
     "hela-cells.tif" => "http://imagej.nih.gov/ij/images/hela-cells.zip",
     "blobs.gif" => "http://imagej.nih.gov/ij/images/blobs.gif",
-    "multi-channel-time-series.ome.tif" => "http://www.openmicroscopy.org/Schemas/Samples/2015-01/bioformats-artificial/multi-channel-time-series.ome.tif.zip"
+    "multi-channel-time-series.ome.tif" => "http://www.openmicroscopy.org/Schemas/Samples/2015-01/bioformats-artificial/multi-channel-time-series.ome.tif"
 )
 
 for (k, v) in remotedict
