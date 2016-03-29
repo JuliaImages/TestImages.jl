@@ -35,13 +35,15 @@ or databases. Here is a list of the currently-supported images:
 
 `cameraman`
 
-![cameraman](http://codesmesh.com/wp-content/uploads/2013/04/cameraman.jpg)
+![cameraman](https://www.math.ust.hk/~masyleung/Teaching/CAS/MATLAB/image/images/cameraman.jpg)
 
 `earth_apollo17` (a particularly large image)
 
 ![earth_apollo17](http://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg)
 
 `house`
+
+![house](http://download.visinf.tu-darmstadt.de/data/foe/img/house.png)
 
 `jetplane`
 
