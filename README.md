@@ -49,7 +49,7 @@ or databases. Here is a list of the currently-supported images:
 
 ![lake](images/lake.tif)
 
-`lena_color_256`, `lena_color_512`, `lena_gray_256`, `lena_gray_512`
+`lena_color_256`, `lena_color_512`, `lena_gray_256`, `lena_gray_512`, `lena_gray_16bit`
 
 ![lena_gray_512](http://www.ece.rice.edu/~wakin/images/lenaTest3.jpg)
 
