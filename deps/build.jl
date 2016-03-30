@@ -6,7 +6,7 @@ function expandzip(fname)
         fn = basename(f.name)
         if !isempty(fn)
             open(joinpath(imagedir, fn), "w") do s
-                write(s, readall(f))
+                write(s, readstring(f))
             end
         end
     end
