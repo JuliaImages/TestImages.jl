@@ -5,11 +5,87 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>TestImages.jl - A repository of images for testing</title>
 		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="displayimages.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="displayimages.js"></script>
 	</head>
 	<body>
 		<div class="container">
+			<div class="col-xs-8 col-xs-offset-2">
+				<br><br>
+				<h1 class="text-center">TestImages.jl</h1>
+				<h4 class="text-center">A repository of standard test images for <a href="https://github.com/timholy/Images.jl">Images.jl</a></h4>
+				<a href="https://travis-ci.org/timholy/TestImages.jl"><img src="https://travis-ci.org/timholy/TestImages.jl.png" class="center-block"></a>
+				<hr>
+				
+				<h3>Installation</h3>
+				<hr>
+				<h5>On Linux and OSX, this should install automatically. If you find yourself missing most of the images described <a href="#Images">below</a>, please try <code>Pkg.build("TestImages")</code>, which should trigger another attempt to download the images.</h5>
+				<h5>On Windows, the <code>download</code> command, used to download images from the archives, is not fully supported. You can manually download and unzip the files listed in <code>deps\build.jl</code> and place them in <code>TestImages\images</code>.</h5>
+				
+				<h3>Usage</h3>
+				<hr>
+				<br><code>using TestImages<br>img = testimage("cameraman")</code>
+				<h5>The standard test images are downloaded to an <code>images/</code> directory inside this package. Any image file stored in this directory is accessible through the <code>testimage</code> function. You can supply the file extension (e.g., ".png", ".tif", etc), but it is not required.</h5>
+				
+				<h3>Contributing</h3>
+				<hr>
+				<h5>Anyone can contribute images to this repository by submitting a pull request at the <a href="https://github.com/timholy/TestImages.jl">github repo</a>. Do check the images for copyright or license issues before submitting.</h5>
+
+				<h5>The following steps should be followed to add an image/imageset to the repository :</h5>
+
+				<ul>
+					<li>
+						Do <code>git checkout -b gh-pages</code> in your local repository folder. <code>Pkg.dir("TestImages")</code> gives the location of the repo.
+					</li>
+					<li>
+						Add the image or imageset in zip format locally to the <code>images/</code> folder on your machine.
+					</li>
+					<li>
+						Modify <code>displayimages.js</code> : Add an entry to the <code>images</code> dictionary with attributes filename, colorspace, size and filetype.
+					</li>
+					<li>
+						Do <code>git add images/&#60;filename&#62; displayimages.js</code> to <b>add just the new image</b> to the image repository.
+					</li>
+					<li>
+						<code>git commit -m "Adds &#60;filename&#62; to the repository from link &#60;link&#62;"</code>
+					</li>
+					<li>
+						<code>git push fork gh-pages</code>
+					</li>
+					<li>
+						Now submit a pull request to the <code>gh-pages</code> branch. Once accepted, the image or imageset will be stored at <br> https://github.com/timholy/TestImages.jl/blob/gh-pages/images/&#60;filename&#62;.
+					</li>
+				</ul>
+				<h5>Now that the images are added to the repository, we need to modify the source files of the TestImages.jl package to make them available for download.</h5>
+				<ul>
+					<li>
+						Do <code>git checkout master</code> to return to the master branch.
+					</li>
+					<li>
+						Modify <code>deps/build.jl</code> : Add a (key, value)=(imagename, link) pair to the <code>remotedict</code> dictionary. For example, to add an image with the name "helloworld", add it to the repository as shown above and then add the entry <code>"helloworld" => "https://github.com/timholy/TestImages.jl/blob/gh-pages/images/helloworld.jpg"</code> to the dictionary.
+					</li>
+					<li>
+						Do <code>git add --all</code> to add the changed source files.
+					</li>
+					<li>
+						<code>git commit -m "Adds &#60;filename&#62; to package"</code>
+					</li>
+					<li>
+						<code>git push fork master</code>
+					</li>
+					<li>
+						Now submit a pull request to the <code>master</code> branch. Once accepted, the image or imageset will be available for download to users of TestImages.jl.
+					</li>
+				</ul>
+				
+				<h3 id="Images">The Images    <small>[ Click Name to Download ]</small></h3>
+				<table class="table">
+					<tbody id="table-body">
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</body>
 </html> 
