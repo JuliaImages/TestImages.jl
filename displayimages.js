@@ -2,8 +2,8 @@ function getImageHTML(image,f){
 
 	var elem="<td class=\"text-center\">"
 
-	elem += "<img src=\"images/"+image["fname"]+"\"class=\"table_image\">"
-	elem += "<h5> Name : <a href=\"images/"+image["fname"]+"\">"+f+"</a></h5>"
+	elem += "<img src=\"webimages/"+image["floc"]+"\"class=\"table_image\">"
+	elem += "<h5> Name : <a href=\"images/"+image["floc"]+"\">"+f+"</a></h5>"
 	elem += "<h5> Colour : "+image["col"]+"</h5>"
 	elem += "<h5> File Type : "+image["ftype"]+"</h5>"
 	elem += "<h5> Size : "+image["size"]+"</h5>"
@@ -15,38 +15,37 @@ function getImageHTML(image,f){
 
 $('document').ready(function(){
 
-	var images = {
-	autumn_leaves : {fname:"autumn_leaves.png", col:"sRGB", size : "140x105", ftype: "PNG"},
-	blobs : {fname:"blobs.gif", col:"sRGB", size : "256x254", ftype: "GIF"},
-	cameraman : {fname:"cameraman.tif", col:"Gray", size : "512x512", ftype:"TIFF"},
-	earth_apollo17 : {fname:"earth_apollo17.jpg", col:"sRGB", size : "3000x3002", ftype:"JPG"},
-	"hela-cells" : {fname:"hela-cells.tif", col:"sRGB", size : "672x512", ftype:"TIFF"},
-	house : {fname:"house.tif", col:"Gray", size : "512x512", ftype:"TIFF"},
-	jetplane : {fname:"jetplane.tif", col:"Gray", size : "512x512", ftype:"TIFF"},
-	lake : {fname:"lake.tif", col:"Gray", size : "512x512", ftype:"TIFF"},
-	lena_color_256 : {fname:"lena_color_256.tif", col:"sRGB", size : "256x256", ftype:"TIFF"},
-	lena_color_512 : {fname:"lena_color_512.tif", col:"sRGB", size : "512x512", ftype:"TIFF"},
-	lena_gray_16bit : {fname:"lena_gray_16bit.png", col:"Gray", size : "256x256", ftype: "PNG"},
-	lena_gray_256 : {fname:"lena_gray_256.tif", col:"Gray", size : "256x256", ftype:"TIFF"},
-	lena_gray_512 : {fname:"lena_gray_512.tif", col:"Gray", size : "512x512", ftype:"TIFF"},
-	lighthouse : {fname:"lighthouse.png", col:"sRGB", size : "768x512", ftype: "PNG"},
-	livingroom : {fname:"livingroom.tif", col:"Gray", size : "512x512", ftype:"TIFF"},
-	m51 : {fname:"m51.tif", col:"Gray", size : "320x510", ftype:"TIFF"},
-	mandril_color : {fname:"mandril_color.tif", col:"sRGB", size : "512x512", ftype:"TIFF"},
-	mandril_gray : {fname:"mandril_gray.tif", col:"Gray", size : "512x512", ftype:"TIFF"},
-	mandrill : {fname:"mandrill.tiff", col:"sRGB", size : "512x512", ftype:"TIFF"},
-	moonsurface : {fname:"moonsurface.tiff", col:"Gray", size : "256x256", ftype:"TIFF"},
-	mountainstream : {fname:"mountainstream.png", col:"sRGB", size : "768x512", ftype: "PNG"},
-	"mri-stack" : {fname:"mri-stack.tif", col:"Gray", size : "186x226x27", ftype:"TIFF"},
-	"multi-channel-time-series.ome" : {fname:"multi-channel-time-series.ome.tif", col:"Gray", size : "439x167x21", ftype:"TIFF"},
-	peppers_color : {fname:"peppers_color.tif", col:"sRGB", size : "512x512", ftype:"TIFF"},
-	peppers_gray : {fname:"peppers_gray.tif", col:"Gray", size : "512x512", ftype:"TIFF"},
-	pirate : {fname:"pirate.tif", col:"Gray", size : "512x512", ftype:"TIFF"},
-	toucan : {fname:"toucan.png", col:"RGB", size : "162x150", ftype: "PNG"},
-	walkbridge : {fname:"walkbridge.tif", col:"Gray", size : "512x512", ftype:"TIFF"},
-	woman_blonde : {fname:"woman_blonde.tif", col:"Gray", size : "512x512", ftype:"TIFF"},
-	woman_darkhair : {fname:"woman_darkhair.tif", col:"Gray", size : "512x512", ftype:"TIFF"}
-	}
+	var images = {"autumn_leaves" : {floc:"autumn_leaves.png" ,col:"sRGB", size : "(140,105)", ftype : "PNG"},
+"blobs" : {floc:"blobs.png" ,col:"sRGB", size : "(256,254)", ftype : "GIF"},
+"cameraman" : {floc:"cameraman.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+"earth_apollo17" : {floc:"earth_apollo17.png" ,col:"sRGB", size : "(3000,3002)", ftype : "JPG"},
+"hela-cells" : {floc:"hela-cells.png" ,col:"sRGB", size : "(672,512)", ftype : "TIF"},
+"house" : {floc:"house.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+"jetplane" : {floc:"jetplane.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+"lake" : {floc:"lake.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+"lena_color_256" : {floc:"lena_color_256.png" ,col:"sRGB", size : "(256,256)", ftype : "TIF"},
+"lena_color_512" : {floc:"lena_color_512.png" ,col:"sRGB", size : "(512,512)", ftype : "TIF"},
+"lena_gray_16bit" : {floc:"lena_gray_16bit.png" ,col:"Gray", size : "(256,256)", ftype : "PNG"},
+"lena_gray_256" : {floc:"lena_gray_256.png" ,col:"Gray", size : "(256,256)", ftype : "TIF"},
+"lena_gray_512" : {floc:"lena_gray_512.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+"lighthouse" : {floc:"lighthouse.png" ,col:"sRGB", size : "(768,512)", ftype : "PNG"},
+"livingroom" : {floc:"livingroom.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+"m51" : {floc:"m51.png" ,col:"Gray", size : "(320,510)", ftype : "TIF"},
+"mandril_color" : {floc:"mandril_color.png" ,col:"sRGB", size : "(512,512)", ftype : "TIF"},
+"mandril_gray" : {floc:"mandril_gray.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+"mandrill" : {floc:"mandrill.png" ,col:"sRGB", size : "(512,512)", ftype : "TIFF"},
+"moonsurface" : {floc:"moonsurface.png" ,col:"Gray", size : "(256,256)", ftype : "TIFF"},
+"mountainstream" : {floc:"mountainstream.png" ,col:"sRGB", size : "(768,512)", ftype : "PNG"},
+"mri-stack" : {floc:"cannot_be_displayed.png" ,col:"Gray", size : "(186,226,27)", ftype : "TIF"},
+"multi-channel-time-series.ome" : {floc:"cannot_be_displayed.png" ,col:"Gray", size : "(439,167,21)", ftype : "TIF"},
+"peppers_color" : {floc:"peppers_color.png" ,col:"sRGB", size : "(512,512)", ftype : "TIF"},
+"peppers_gray" : {floc:"peppers_gray.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+"pirate" : {floc:"pirate.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+"toucan" : {floc:"toucan.png" ,col:"RGB", size : "(162,150)", ftype : "PNG"},
+"walkbridge" : {floc:"walkbridge.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+"woman_blonde" : {floc:"woman_blonde.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+"woman_darkhair" : {floc:"woman_darkhair.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+}
 
 	var create_new_row=0;
 	imagesHTML="<tr>"
@@ -63,5 +62,4 @@ $('document').ready(function(){
 	imagesHTML+="</tr>"
 	$("#table-body").append(imagesHTML);
 
-	// $("#table-body").append(get);
 });
