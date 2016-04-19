@@ -21,14 +21,16 @@
 				
 				<h3>Installation</h3>
 				<hr>
-				<h5>On Linux and OSX, this should install automatically. If you find yourself missing most of the images described <a href="#Images">below</a>, please try <code>Pkg.build("TestImages")</code>, which should trigger another attempt to download the images.</h5>
-				<h5>On Windows, the <code>download</code> command, used to download images from the archives, is not fully supported. You can manually download and unzip the files listed in <code>deps\build.jl</code> and place them in <code>TestImages\images</code>.</h5>
-				
+				<h5>On Linux and OSX, this should install automatically. If you find yourself missing most of the images described <a href="#Images">below</a>, please try <code>Pkg.build("TestImages")</code>, which should trigger another attempt to download the standard images. </h5>
+				<h5>In case you would like to download other images from the repository not in the standard set, you can call the <code>testimage</code> with the image name and it will be downloaded from the repository.</h5>
+				<h5>On Windows, the <code>download</code> command, used to download images from the archives, is not fully supported. You can manually download the files listed in <code>deps\build.jl</code> from the <code>images</code> folder of the <code>gh-pages</code> branch of this repository and place them in <code>TestImages\images</code>.</h5>
 				<h3>Usage</h3>
 				<hr>
-				<br><code>using TestImages<br>img = testimage("cameraman")</code>
+				<code>using TestImages<br>img = testimage("cameraman")</code>
 				<h5>The standard test images are downloaded to an <code>images/</code> directory inside this package. Any image file stored in this directory is accessible through the <code>testimage</code> function. You can supply the file extension (e.g., ".png", ".tif", etc), but it is not required.</h5>
-				
+				<h5>In case the image is not present locally, the <code>testimage</code> function will check the online repository and download it for you.</h5>
+				<h5></h5>
+
 				<h3>Contributing</h3>
 				<hr>
 				<h5>Anyone can contribute images to this repository by submitting a pull request at the <a href="https://github.com/timholy/TestImages.jl">github repo</a>. Do check the images for copyright or license issues before submitting.</h5>
@@ -79,7 +81,6 @@
 						Now submit a pull request to the <code>master</code> branch. Once accepted, the image or imageset will be available for download to users of TestImages.jl.
 					</li>
 				</ul>
-				
 				<h3 id="Images">The Images    <small>[ Click Name to Download ]</small></h3>
 				<table class="table">
 					<tbody id="table-body">
