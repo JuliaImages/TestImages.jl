@@ -13,10 +13,12 @@ Full documentation and description of the images available in TestImages.jl can 
 
 ## Installation
 
-On Linux and OSX, this should install automatically. If you find yourself missing most of the images described below, please try `Pkg.build("TestImages")`, which should trigger another attempt to download the images.
+On Linux and OSX, this should install automatically. If you find yourself missing most of the images described in the documentation, please try `Pkg.build("TestImages")`, which should trigger another attempt to download the images.
 
-On Windows, the `download` command, used to download images from the archives, is not fully supported. You can manually download and unzip the files listed in `deps\build.jl` and place them in `TestImages\images`.
+In case you would like to download other images from the repository not in the standard set, you can call the ```testimage``` with the image name and it will be downloaded from the repository.
 
+On Windows, the ```download``` command, used to download images from the archives, is not fully supported. You can manually download the files listed in ```deps\build.jl``` from the ```images``` folder of the ```gh-pages``` branch of this repository and place them in ```TestImages\images```.
+				
 ## Usage
 
 ```
@@ -29,6 +31,8 @@ The standard test images are downloaded to an `images/` directory
 inside this package.  Any image file stored in this directory is
 accessible through the `testimage` function.  You can supply the file
 extension (e.g., ".png", ".tif", etc), but it is not required.
+
+In case the image is not present locally, the ```testimage``` function will check the online repository and download it for you.
 
 ## Contributing
 
