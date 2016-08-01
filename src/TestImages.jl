@@ -3,7 +3,7 @@ using Images
 
 export testimage
 
-const imagedir = joinpath(Pkg.dir(), "TestImages", "images")
+const imagedir = joinpath(dirname(@__FILE__), "..", "images")
 
 REPO_URL = "https://github.com/timholy/TestImages.jl/blob/gh-pages/images/"
 

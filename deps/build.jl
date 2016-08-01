@@ -1,4 +1,4 @@
-imagedir = Pkg.dir("TestImages", "images")
+imagedir = joinpath(dirname(@__FILE__), "..", "images")
 if !isdir(imagedir)
     mkdir(imagedir)
 end
