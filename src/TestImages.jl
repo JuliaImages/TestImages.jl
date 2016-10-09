@@ -1,5 +1,5 @@
 module TestImages
-using Images
+using FileIO
 
 export testimage
 
