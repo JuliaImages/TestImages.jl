@@ -3,7 +3,7 @@ if !isdir(imagedir)
     mkdir(imagedir)
 end
 
-REPO_URL = "https://github.com/timholy/TestImages.jl/blob/gh-pages/images/"
+REPO_URL = "https://github.com/juliaimages/TestImages.jl/blob/gh-pages/images/"
 
 stdfiles = [
     "cameraman.tif" ,

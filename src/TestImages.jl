@@ -5,7 +5,7 @@ export testimage
 
 const imagedir = joinpath(dirname(@__FILE__), "..", "images")
 
-REPO_URL = "https://github.com/timholy/TestImages.jl/blob/gh-pages/images/"
+REPO_URL = "https://github.com/juliaimages/TestImages.jl/blob/gh-pages/images/"
 
 remotefiles = [
     "autumn_leaves.png" ,
