@@ -16,7 +16,7 @@
 				<br><br>
 				<h1 class="text-center">TestImages.jl</h1>
 				<h4 class="text-center">A repository of standard test images for <a href="https://github.com/timholy/Images.jl">Images.jl</a></h4>
-				<a href="https://travis-ci.org/timholy/TestImages.jl"><img src="https://travis-ci.org/timholy/TestImages.jl.png" class="center-block"></a>
+				<a href="https://travis-ci.org/juliaimages/TestImages.jl"><img src="https://travis-ci.org/juliaimages/TestImages.jl.png" class="center-block"></a>
 				<hr>
 				
 				<h3>Installation</h3>
@@ -33,7 +33,7 @@
 
 				<h3>Contributing</h3>
 				<hr>
-				<h5>Anyone can contribute images to this repository by submitting a pull request at the <a href="https://github.com/timholy/TestImages.jl">github repo</a>. Do check the images for copyright or license issues before submitting.</h5>
+				<h5>Anyone can contribute images to this repository by submitting a pull request at the <a href="https://github.com/juliaimages/TestImages.jl">github repo</a>. Do check the images for copyright or license issues before submitting.</h5>
 
 				<h5>The following steps should be followed to add an image/imageset to the repository :</h5>
 
@@ -57,7 +57,7 @@
 						<code>git push fork gh-pages</code>
 					</li>
 					<li>
-						Now submit a pull request to the <code>gh-pages</code> branch. Once accepted, the image or imageset will be stored at <br> https://github.com/timholy/TestImages.jl/blob/gh-pages/images/&#60;filename&#62;.
+						Now submit a pull request to the <code>gh-pages</code> branch. Once accepted, the image or imageset will be stored at <br> https://github.com/juliaimages/TestImages.jl/blob/gh-pages/images/&#60;filename&#62;.
 					</li>
 				</ul>
 				<h5>Now that the images are added to the repository, we need to modify the source files of the TestImages.jl package to make them available for download.</h5>
@@ -66,7 +66,11 @@
 						Do <code>git checkout master</code> to return to the master branch.
 					</li>
 					<li>
+<<<<<<< Updated upstream
 						Modify <code>src/TestImages.jl</code> : Add an entry with the filename to the <code>remotedict</code> dictionary.
+=======
+						Modify <code>deps/build.jl</code> : Add a (key, value)=(imagename, link) pair to the <code>remotedict</code> dictionary. For example, to add an image with the name "helloworld", add it to the repository as shown above and then add the entry <code>"helloworld" => "https://github.com/juliaimages/TestImages.jl/blob/gh-pages/images/helloworld.jpg"</code> to the dictionary.
+>>>>>>> Stashed changes
 					</li>
 					<li>
 						Do <code>git add --all</code> to add the changed source files.
