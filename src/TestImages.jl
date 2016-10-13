@@ -5,7 +5,7 @@ export testimage
 
 const imagedir = joinpath(dirname(@__FILE__), "..", "images")
 
-REPO_URL = "https://github.com/timholy/TestImages.jl/blob/gh-pages/images/"
+REPO_URL = "https://github.com/JuliaImages/TestImages.jl/blob/gh-pages/images/"
 
 remotefiles = [
     "autumn_leaves.png" ,
@@ -45,6 +45,7 @@ remotefiles = [
 ]
 
 function testimage(filename, ops...)
+    isdir(imagedir) || mkpath(imagedir)
     imagefile = joinpath(imagedir, filename)
     if !isfile(imagefile)
         fls = readdir(imagedir)
@@ -74,4 +75,3 @@ function testimage(filename, ops...)
     load(imagefile, ops...)
 end
 end
-
