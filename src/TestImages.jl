@@ -1,5 +1,7 @@
+__precompile__()
+
 module TestImages
-using FileIO
+using FileIO, AxisArrays
 
 export testimage
 
@@ -72,6 +74,13 @@ function testimage(filename, ops...)
         end
         havefile || error("$filename not found in the directory or the online repository. Here are the contents of the images/ directory:\n$(join(fls, '\n'))")
     end
-    load(imagefile, ops...)
+    img = load(imagefile, ops...)
+    if startswith(basename(imagefile), "mri-stack")
+        # orientation is posterior-right-superior,
+        # see http://www.grahamwideman.com/gw/brain/orientation/orientterms.htm
+        return AxisArray(img, (:P, :R, :S), (1, 1, 5))
+    end
+    img
 end
-end
+
+end # module
