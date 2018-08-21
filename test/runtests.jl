@@ -1,5 +1,8 @@
-using TestImages, FixedPointNumbers, Colors, AxisArrays
-using Base.Test
+using TestImages
+using FixedPointNumbers
+using AxisArrays
+using Colors
+using Test
 
 img = testimage("cameraman")
 @test isa(img, Matrix{Gray{N0f8}})
