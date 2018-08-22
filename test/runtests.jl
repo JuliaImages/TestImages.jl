@@ -1,4 +1,7 @@
-using TestImages, FixedPointNumbers, Colors, AxisArrays
+using TestImages
+using FixedPointNumbers
+using AxisArrays
+using Colors
 using Test
 
 img = testimage("cameraman")
