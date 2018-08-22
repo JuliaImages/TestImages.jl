@@ -61,10 +61,10 @@ function testimage(filename, ops...)
         end
 
         if !havefile
-            info("Could not find "*filename*" in directory. Checking if it exists in the online repository.")
+            @info "Could not find "*filename*" in directory. Checking if it exists in the online repository."
             for f in remotefiles
                 if startswith(f, filename)
-                    info("Found "*filename*" in the online repository. Downloading to the images directory.")
+                    @info "Found "*filename*" in the online repository. Downloading to the images directory."
                     download(REPO_URL*f*"?raw=true", joinpath(imagedir, f))
                     havefile = true
                     imagefile = joinpath(imagedir, f)
