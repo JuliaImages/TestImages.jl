@@ -26,18 +26,13 @@ stdfiles = [
     "woman_darkhair.tif" ,
 ]
 
-info("Downloading standard test images")
+@info "Downloading standard test images"
 for f in stdfiles
     fn = joinpath(imagedir, f)
     if !isfile(fn)
-        info("Downloading $fn")
+        @info "Downloading $fn"
         download(REPO_URL*f*"?raw=true", joinpath(imagedir, f))
     end
 end
 
-info("Download Completed.")
-
-
-
-
-
+@info "Download Completed."

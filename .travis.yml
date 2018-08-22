@@ -2,10 +2,12 @@ language: julia
 os:
   - linux
 julia:
-  - 0.5
+  - 0.7
+  - 1.0
   - nightly
 notifications:
   email: false
-script:
-    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-    - julia -e 'Pkg.init(); Pkg.clone(pwd()); Pkg.build("TestImages"); Pkg.test("TestImages")'
+
+after_success:
+  # push coverage results to Codecov
+  - julia -e 'using Pkg; cd(joinpath(pathof(TestImages), "..", "..")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
