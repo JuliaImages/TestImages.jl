@@ -51,8 +51,7 @@ function testimage(filename, ops...)
         fls = readdir(imagedir)
         havefile = false
         for f in fls
-            fname, fext = splitext(f)
-            if fname == split(filename, fext)[1]
+            if startswith(f, filename)
                 imagefile = joinpath(imagedir, f)
                 havefile = true
                 break
@@ -62,8 +61,7 @@ function testimage(filename, ops...)
         if !havefile
             @info "Could not find "*filename*" in directory. Checking if it exists in the online repository."
             for f in remotefiles
-                fname, fext = splitext(f)
-                if fname == split(filename, fext)[1]
+                if startswith(f, filename)
                     @info "Found "*filename*" in the online repository. Downloading to the images directory."
                     download(REPO_URL*f*"?raw=true", joinpath(imagedir, f))
                     havefile = true
@@ -72,10 +70,10 @@ function testimage(filename, ops...)
                 end
             end
         end
-        havefile || throw(ArgumentError("$filename not found in the directory or the online repository. Here are the contents of the images/ directory:\n$(join(remotefiles, '\n'))"))
+        havefile || error("$filename not found in the directory or the online repository. Here are the contents of the images/ directory:\n$(join(fls, '\n'))")
     end
     img = load(imagefile, ops...)
-    if basename(imagefile) in ["mri-stack.tif",]
+    if startswith(basename(imagefile), "mri-stack")
         # orientation is posterior-right-superior,
         # see http://www.grahamwideman.com/gw/brain/orientation/orientterms.htm
         return AxisArray(img, (:P, :R, :S), (1, 1, 5))
