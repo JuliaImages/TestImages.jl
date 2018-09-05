@@ -6,5 +6,7 @@ img = testimage("cameraman")
 img = testimage("mri-stack")
 @test isa(img, AxisArray)
 @test map(step, axisvalues(img)) == (1,1,5)
+@test_nowarn testimage("c")
+@test_throws ArgumentError testimage("nonexistence.png")
 
-nothing
+@test all([f in TestImages.remotefiles for f in readdir(TestImages.imagedir)])
