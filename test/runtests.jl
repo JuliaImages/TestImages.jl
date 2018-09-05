@@ -6,5 +6,7 @@ img = testimage("cameraman")
 img = testimage("mri-stack")
 @test isa(img, AxisArray)
 @test map(step, axisvalues(img)) == (1,1,5)
+@test_nowarn testimage("cameraman.tif")
+@test_throws ArgumentError testimage("c")
 
 nothing
