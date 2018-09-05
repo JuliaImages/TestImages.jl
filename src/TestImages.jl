@@ -47,7 +47,7 @@ remotefiles = [
 """
     testimage(filename, [ops...])
 
-load test image that partially matches `filename`. If `ops` is specified, it will be passed to `load` function. use `TestImages.remotefiles` to get a full list of available images.
+load test image that partially matches `filename`, the first match is used if there're more than one. If `ops` is specified, it will be passed to `load` function. use `TestImages.remotefiles` to get a full list of available images.
 
 # Example
 ```julia
