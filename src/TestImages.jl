@@ -44,6 +44,19 @@ remotefiles = [
     "woman_darkhair.tif" ,
 ]
 
+"""
+    testimage(filename, [ops...])
+
+load test image that partially matches `filename`, the first match is used if there're more than one. If `ops` is specified, it will be passed to `load` function. use `TestImages.remotefiles` to get a full list of available images.
+
+# Example
+```julia
+julia> using TestImages
+julia> testimage("cameraman.tif")
+julia> testimage("cameraman")
+julia> testimage("c")
+```
+"""
 function testimage(filename, ops...)
     isdir(imagedir) || mkpath(imagedir)
     imagefile = joinpath(imagedir, filename)
@@ -59,7 +72,7 @@ function testimage(filename, ops...)
         end
 
         if !havefile
-            @info "Could not find "*filename*" in directory. Checking if it exists in the online repository."
+            @info "Could not find "*filename*" in directory images/ . Checking if it exists in the online repository."
             for f in remotefiles
                 if startswith(f, filename)
                     @info "Found "*filename*" in the online repository. Downloading to the images directory."
@@ -70,7 +83,7 @@ function testimage(filename, ops...)
                 end
             end
         end
-        havefile || error("$filename not found in the directory or the online repository. Here are the contents of the images/ directory:\n$(join(fls, '\n'))")
+        havefile || throw(ArgumentError("$filename not found in the directory images/ or the online repository. use `TestImages.remotefiles` to get a full list of test images"))
     end
     img = load(imagefile, ops...)
     if startswith(basename(imagefile), "mri-stack")
