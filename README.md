@@ -9,7 +9,7 @@ This can be used in conjunction with the
 
 ## Documentation
 
-Full documentation and description of the images available in TestImages.jl can be found [here](http://juliaimages.github.io/TestImages.jl/).
+Full documentation and description of the images available in TestImages.jl can be found [here](https://testimages.juliaimages.org/).
 
 ## Installation
 
