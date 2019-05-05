@@ -2,10 +2,10 @@ function getImageHTML(image,f){
 
 	var elem="<td class=\"text-center\">"
 
-	elem += "<img src=\"thumbnails/"+image["floc"]+"\"class=\"table_image\">"
-	elem += "<h5> Name : <a href=\"images/"+image["floc"]+"\">"+f+"</a></h5>"
+	elem += "<img src=\"thumbnails/"+image["file_location"]+"\"class=\"table_image\">"
+	elem += "<h5> Name : <a href=\"images/"+image["file_location"]+"\">"+f+"</a></h5>"
 	elem += "<h5> Colour : "+image["col"]+"</h5>"
-	elem += "<h5> File Type : "+image["ftype"]+"</h5>"
+	elem += "<h5> File Type : "+image["filetype"]+"</h5>"
 	elem += "<h5> Size : "+image["size"]+"</h5>"
 	elem+="</td>"
 

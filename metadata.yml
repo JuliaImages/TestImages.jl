@@ -1,0 +1,16 @@
+#
+# An easy image database
+#
+# the key has to match the filename
+# then one can use the sub fields
+#
+# name - a displayed name for the image
+# url - origin url (if known)
+# author – original author (if known)
+#
+# none of these fields is required.
+autumn_leaves:
+  name: Autum Leaves
+lake_color:
+    name: Sailboat on lake
+    url: http://sipi.usc.edu/database/database.php?volume=misc&image=12#top
