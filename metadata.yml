@@ -11,6 +11,10 @@
 # none of these fields is required.
 autumn_leaves:
   name: Autum Leaves
+  url: http://www.imagemagick.org/Usage/images/autumn_leaves.png
 lake_color:
-    name: Sailboat on lake
-    url: http://sipi.usc.edu/database/database.php?volume=misc&image=12#top
+  name: Sailboat on lake
+  url: http://sipi.usc.edu/database/database.php?volume=misc&image=12#top
+peppers_color:
+  name: Peppers (color)
+  url: http://sipi.usc.edu/database/database.php?volume=misc&image=13#top

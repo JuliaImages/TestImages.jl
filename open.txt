@@ -2,16 +2,28 @@ function getImageHTML(image,f){
 
 	var elem="<td class=\"text-center\">"
 
-	elem += "<img src=\"thumbnails/"+image["file_location"]+"\"class=\"table_image\">"
-	elem += "<h5> Name : <a href=\"images/"+image["file_location"]+"\">"+f+"</a></h5>"
-	elem += "<h5> Colour : "+image["col"]+"</h5>"
-	elem += "<h5> File Type : "+image["filetype"]+"</h5>"
-	elem += "<h5> Size : "+image["size"]+"</h5>"
+	elem += "<a href=\"images/" + image["file_location"] +"\"><img src=\"thumbnails/" + image["file_location"] + "\"class=\"table_image\"></a>"
+	if ("name" in image) {
+		elem += "<a href=\"images/" + image["file_location"] + "\">" + image["name"] + "</a><br>"
+		elem +=" <span class=\"filename\">"+f+"<br>"
+	} else { // old style just link file
+		elem += "<a href=\"images/"+image["file_location"]+"\">"+f+"</a><br>"
+	}
+	elem += "<dl>"
+	elem += "<dt>Color</dt><dd>"+image["colorspace"]+"</dd>"
+	elem += "<dt>Type</dt><dd>"+image["filetype"]+"</dd>"
+	elem += "<dt>Size</dt><dd>"+image["size"]+"</dd>"
+	elem += "</dl>"
+	if ("url" in image) {
+		elem += "<span class=\"meta_info\"><a href=\""+image["url"]+"\">source</a></span>"
+	}
+	if ("author" in image) {
+		elem += "<span class=\"meta_info\">" + image["author"]+"</span>"
+  }
 	elem+="</td>"
 
 	return elem;
 }
-
 
 $('document').ready(function(){
 
