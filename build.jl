@@ -36,7 +36,7 @@ for i in f
     end
     content *= "\""*fname*"\" : "*"{"
   # check for metatdata fields and add them
-  for key in ["name,","url","author"]
+  for key in ["name","url","author"]
     if haskey(fileMeta,key)
         content *= key * ":\"" * fileMeta[key] * "\", "
     end
@@ -47,8 +47,6 @@ for i in f
   content *= "size : \""*string(size(img))*"\", "
   content *= "filetype : \""*uppercase(ext[2:end])*"\"},\n"
 end
-# add end of html file
-f = open("close.txt")
-content *= read(f,String)
-close(f)
+# add end of html file and write out js.
+content *= read("close.txt",String)
 write("displayimages.js", content);
