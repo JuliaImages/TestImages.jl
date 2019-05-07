@@ -1,7 +1,6 @@
 using Images, YAML, ColorTypes
 # Open the HTML prequel and put it into our content we build.
-f = open("open.txt")
-content = read(f,String)
+content = read("open.txt",String)
 
 # Read all images
 f = readdir("images/")
@@ -18,28 +17,28 @@ HEIGHT = 200
 
 # Go through all files
 for i in f
-	global content
-	println("Processing "*i)
-	img = load(joinpath("images/",i))
-	fname, ext =splitext(i)
+    global content
+    println("Processing "*i)
+    img = load(joinpath("images/",i))
+    fname, ext =splitext(i)
   file=""
   # fetch metadata (is empty if no yaml entry exists)
   fileMeta = get(imageMetadata,fname,Dict())
   if length(size(img))==2
-		file=fname*".png"
-		if !isfile(joinpath("thumbnails/",file))
-			img_size = size(img)
-			resized_image = Images.imresize(img, (Int(ceil(img_size[1]*HEIGHT/img_size[2])), HEIGHT))
-			save(joinpath("thumbnails/",file), resized_image)
-		end
-	else
-		file="cannot_be_displayed.png"
-	end
-	content *= "\""*fname*"\" : "*"{"
+        file=fname*".png"
+        if !isfile(joinpath("thumbnails/",file))
+            img_size = size(img)
+            resized_image = Images.imresize(img, (Int(ceil(img_size[1]*HEIGHT/img_size[2])), HEIGHT))
+            save(joinpath("thumbnails/",file), resized_image)
+        end
+    else
+        file="cannot_be_displayed.png"
+    end
+    content *= "\""*fname*"\" : "*"{"
   # check for metatdata fields and add them
   for key in ["name,","url","author"]
-    if length(get(fileMeta,key,"")) > 0 # field exists
-      content *= key * ":\"" * get(fileMeta,key,"") * "\", "
+    if haskey(fileMeta,key)
+        content *= key * ":\"" * fileMeta[key] * "\", "
     end
   end
   # and the classical ones
@@ -52,6 +51,4 @@ end
 f = open("close.txt")
 content *= read(f,String)
 close(f)
-outfile = open("displayimages.js", "w")
-write(outfile,content)
-close(outfile)
+write("displayimages.js", content);
