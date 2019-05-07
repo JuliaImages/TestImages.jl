@@ -10,11 +10,25 @@
 #
 # none of these fields is required.
 autumn_leaves:
-  name: Autum Leaves
-  url: http://www.imagemagick.org/Usage/images/autumn_leaves.png
+    name: Autum Leaves
+    url: http://www.imagemagick.org/Usage/images/autumn_leaves.png
+earth_apollo17:
+    url: http://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg
 lake_color:
-  name: Sailboat on lake
-  url: http://sipi.usc.edu/database/database.php?volume=misc&image=12#top
+    name: Sailboat on lake
+    url: http://sipi.usc.edu/database/database.php?volume=misc&image=12#top
+lena_gray_512:
+    url: http://www.ece.rice.edu/~wakin/images/lenaTest3.jpg
+lighthouse:
+    url: http://r0k.us/graphics/kodak/kodak/kodim21.png
+mandril_color:
+    url: http://sipi.usc.edu/database/database.php?volume=misc&image=10#top
+mountainstream:
+    url: http://r0k.us/graphics/kodak/kodak/kodim13.png
 peppers_color:
-  name: Peppers (color)
-  url: http://sipi.usc.edu/database/database.php?volume=misc&image=13#top
+    name: Peppers (color)
+    url: http://sipi.usc.edu/database/database.php?volume=misc&image=13#top
+pirate:
+    url: http://sipi.usc.edu/database/database.php?volume=misc&image=23#top
+walkbridge:
+    url: http://sipi.usc.edu/database/database.php?volume=misc&image=22#top

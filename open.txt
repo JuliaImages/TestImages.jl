@@ -5,7 +5,7 @@ function getImageHTML(image,f){
 	elem += "<a href=\"images/" + image["file_location"] +"\"><img src=\"thumbnails/" + image["file_location"] + "\"class=\"table_image\"></a>"
 	if ("name" in image) {
 		elem += "<a href=\"images/" + image["file_location"] + "\">" + image["name"] + "</a><br>"
-		elem +=" <span class=\"filename\">"+f+"<br>"
+		elem +=" <span class=\"filename\"><code>"+f+"</code><br>"
 	} else { // old style just link file
 		elem += "<a href=\"images/"+image["file_location"]+"\">"+f+"</a><br>"
 	}
