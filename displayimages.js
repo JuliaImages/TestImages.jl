@@ -2,53 +2,66 @@ function getImageHTML(image,f){
 
 	var elem="<td class=\"text-center\">"
 
-	elem += "<img src=\"thumbnails/"+image["floc"]+"\"class=\"table_image\">"
-	elem += "<h5> Name : <a href=\"images/"+image["floc"]+"\">"+f+"</a></h5>"
-	elem += "<h5> Colour : "+image["col"]+"</h5>"
-	elem += "<h5> File Type : "+image["ftype"]+"</h5>"
-	elem += "<h5> Size : "+image["size"]+"</h5>"
+	elem += "<a href=\"images/" + image["file_location"] +"\"><img src=\"thumbnails/" + image["file_location"] + "\"class=\"table_image\"></a>"
+	if ("name" in image) {
+		elem += "<a href=\"images/" + image["file_location"] + "\">" + image["name"] + "</a><br>"
+		elem +=" <span class=\"filename\"><code>"+f+"</code><br>"
+	} else { // old style just link file
+		elem += "<a href=\"images/"+image["file_location"]+"\">"+f+"</a><br>"
+	}
+	elem += "<dl>"
+	elem += "<dt>Color</dt><dd>"+image["colorspace"]+"</dd>"
+	elem += "<dt>Type</dt><dd>"+image["filetype"]+"</dd>"
+	elem += "<dt>Size</dt><dd>"+image["size"]+"</dd>"
+	elem += "</dl>"
+	if ("url" in image) {
+		elem += "<span class=\"meta_info\"><a href=\""+image["url"]+"\">source</a></span>"
+	}
+	if ("author" in image) {
+		elem += "<span class=\"meta_info\">" + image["author"]+"</span>"
+  }
 	elem+="</td>"
 
 	return elem;
 }
 
-
 $('document').ready(function(){
 
-	var images = {"autumn_leaves" : {floc:"autumn_leaves.png" ,col:"sRGB", size : "(140,105)", ftype : "PNG"},
-"blobs" : {floc:"blobs.png" ,col:"sRGB", size : "(256,254)", ftype : "GIF"},
-"cameraman" : {floc:"cameraman.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
-"earth_apollo17" : {floc:"earth_apollo17.png" ,col:"sRGB", size : "(3000,3002)", ftype : "JPG"},
-"fabio_color_256" : {floc:"fabio_color_256.png" ,col:"sRGB", size : "(256,256)", ftype : "PNG"},
-"fabio_color_512" : {floc:"fabio_color_512.png" ,col:"sRGB", size : "(512,512)", ftype : "PNG"},
-"fabio_gray_256" : {floc:"fabio_gray_256.png" ,col:"Gray", size : "(256,256)", ftype : "PNG"},
-"fabio_gray_512" : {floc:"fabio_gray_512.png" ,col:"Gray", size : "(512,512)", ftype : "PNG"},
-"hela-cells" : {floc:"hela-cells.png" ,col:"sRGB", size : "(672,512)", ftype : "TIF"},
-"house" : {floc:"house.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
-"jetplane" : {floc:"jetplane.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
-"lake" : {floc:"lake.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
-"lena_color_256" : {floc:"lena_color_256.png" ,col:"sRGB", size : "(256,256)", ftype : "TIF"},
-"lena_color_512" : {floc:"lena_color_512.png" ,col:"sRGB", size : "(512,512)", ftype : "TIF"},
-"lena_gray_16bit" : {floc:"lena_gray_16bit.png" ,col:"Gray", size : "(256,256)", ftype : "PNG"},
-"lena_gray_256" : {floc:"lena_gray_256.png" ,col:"Gray", size : "(256,256)", ftype : "TIF"},
-"lena_gray_512" : {floc:"lena_gray_512.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
-"lighthouse" : {floc:"lighthouse.png" ,col:"sRGB", size : "(768,512)", ftype : "PNG"},
-"livingroom" : {floc:"livingroom.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
-"m51" : {floc:"m51.png" ,col:"Gray", size : "(320,510)", ftype : "TIF"},
-"mandril_color" : {floc:"mandril_color.png" ,col:"sRGB", size : "(512,512)", ftype : "TIF"},
-"mandril_gray" : {floc:"mandril_gray.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
-"mandrill" : {floc:"mandrill.png" ,col:"sRGB", size : "(512,512)", ftype : "TIFF"},
-"moonsurface" : {floc:"moonsurface.png" ,col:"Gray", size : "(256,256)", ftype : "TIFF"},
-"mountainstream" : {floc:"mountainstream.png" ,col:"sRGB", size : "(768,512)", ftype : "PNG"},
-"mri-stack" : {floc:"cannot_be_displayed.png" ,col:"Gray", size : "(186,226,27)", ftype : "TIF"},
-"multi-channel-time-series.ome" : {floc:"cannot_be_displayed.png" ,col:"Gray", size : "(439,167,21)", ftype : "TIF"},
-"peppers_color" : {floc:"peppers_color.png" ,col:"sRGB", size : "(512,512)", ftype : "TIF"},
-"peppers_gray" : {floc:"peppers_gray.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
-"pirate" : {floc:"pirate.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
-"toucan" : {floc:"toucan.png" ,col:"RGB", size : "(162,150)", ftype : "PNG"},
-"walkbridge" : {floc:"walkbridge.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
-"woman_blonde" : {floc:"woman_blonde.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
-"woman_darkhair" : {floc:"woman_darkhair.png" ,col:"Gray", size : "(512,512)", ftype : "TIF"},
+	var images = {"autumn_leaves" : {name:"Autum Leaves", url:"http://www.imagemagick.org/Usage/images/autumn_leaves.png", file_location:"autumn_leaves.png", colorspace:"RGB", size : "(105, 140)", filetype : "PNG"},
+"blobs" : {file_location:"blobs.png", colorspace:"RGB4", size : "(254, 256)", filetype : "GIF"},
+"cameraman" : {file_location:"cameraman.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
+"earth_apollo17" : {url:"http://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg", file_location:"earth_apollo17.png", colorspace:"RGB4", size : "(3002, 3000)", filetype : "JPG"},
+"fabio_color_256" : {file_location:"fabio_color_256.png", colorspace:"RGB4", size : "(256, 256)", filetype : "PNG"},
+"fabio_color_512" : {file_location:"fabio_color_512.png", colorspace:"RGB4", size : "(512, 512)", filetype : "PNG"},
+"fabio_gray_256" : {file_location:"fabio_gray_256.png", colorspace:"Gray", size : "(256, 256)", filetype : "PNG"},
+"fabio_gray_512" : {file_location:"fabio_gray_512.png", colorspace:"Gray", size : "(512, 512)", filetype : "PNG"},
+"hela-cells" : {file_location:"hela-cells.png", colorspace:"RGB", size : "(512, 672)", filetype : "TIF"},
+"house" : {file_location:"house.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
+"jetplane" : {file_location:"jetplane.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
+"lake_color" : {name:"Sailboat on lake", url:"http://sipi.usc.edu/database/database.php?volume=misc&image=12#top", file_location:"lake_color.png", colorspace:"RGB", size : "(512, 512)", filetype : "TIF"},
+"lake_gray" : {file_location:"lake_gray.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
+"lena_color_256" : {file_location:"lena_color_256.png", colorspace:"RGB", size : "(256, 256)", filetype : "TIF"},
+"lena_color_512" : {file_location:"lena_color_512.png", colorspace:"RGB", size : "(512, 512)", filetype : "TIF"},
+"lena_gray_16bit" : {file_location:"lena_gray_16bit.png", colorspace:"Gray", size : "(256, 256)", filetype : "PNG"},
+"lena_gray_256" : {file_location:"lena_gray_256.png", colorspace:"Gray", size : "(256, 256)", filetype : "TIF"},
+"lena_gray_512" : {url:"http://www.ece.rice.edu/~wakin/images/lenaTest3.jpg", file_location:"lena_gray_512.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
+"lighthouse" : {url:"http://r0k.us/graphics/kodak/kodak/kodim21.png", file_location:"lighthouse.png", colorspace:"RGB4", size : "(512, 768)", filetype : "PNG"},
+"livingroom" : {file_location:"livingroom.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
+"m51" : {file_location:"m51.png", colorspace:"Gray", size : "(510, 320)", filetype : "TIF"},
+"mandril_color" : {url:"http://sipi.usc.edu/database/database.php?volume=misc&image=10#top", file_location:"mandril_color.png", colorspace:"RGB", size : "(512, 512)", filetype : "TIF"},
+"mandril_gray" : {file_location:"mandril_gray.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
+"mandrill" : {file_location:"mandrill.png", colorspace:"RGB", size : "(512, 512)", filetype : "TIFF"},
+"moonsurface" : {file_location:"moonsurface.png", colorspace:"Gray", size : "(256, 256)", filetype : "TIFF"},
+"mountainstream" : {url:"http://r0k.us/graphics/kodak/kodak/kodim13.png", file_location:"mountainstream.png", colorspace:"RGB4", size : "(512, 768)", filetype : "PNG"},
+"mri-stack" : {file_location:"cannot_be_displayed.png", colorspace:"Gray", size : "(226, 186, 27)", filetype : "TIF"},
+"multi-channel-time-series.ome" : {file_location:"cannot_be_displayed.png", colorspace:"Gray", size : "(167, 439, 3, 7)", filetype : "TIF"},
+"peppers_color" : {name:"Peppers (color)", url:"http://sipi.usc.edu/database/database.php?volume=misc&image=13#top", file_location:"peppers_color.png", colorspace:"RGB", size : "(512, 512)", filetype : "TIF"},
+"peppers_gray" : {file_location:"peppers_gray.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
+"pirate" : {url:"http://sipi.usc.edu/database/database.php?volume=misc&image=23#top", file_location:"pirate.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
+"toucan" : {file_location:"toucan.png", colorspace:"RGB", size : "(150, 162)", filetype : "PNG"},
+"walkbridge" : {url:"http://sipi.usc.edu/database/database.php?volume=misc&image=22#top", file_location:"walkbridge.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
+"woman_blonde" : {file_location:"woman_blonde.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
+"woman_darkhair" : {file_location:"woman_darkhair.png", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
 }
 
 	var create_new_row=0;
