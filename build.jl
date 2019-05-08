@@ -42,7 +42,8 @@ for i in f
     end
   end
   # and the classical ones
-  content *= "file_location:\""*file*"\", "
+  content *= "thumbnail:\""*file*"\", "
+  content *= "file:\""*i*"\", "
   content *= "colorspace:\""*string(base_color_type(eltype(img)))*"\", "
   content *= "size : \""*string(size(img))*"\", "
   content *= "filetype : \""*uppercase(ext[2:end])*"\"},\n"
