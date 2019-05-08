@@ -2,12 +2,12 @@ function getImageHTML(image,f){
 
 	var elem="<td class=\"text-center\">"
 
-	elem += "<a href=\"images/" + image["file_location"] +"\"><img src=\"thumbnails/" + image["file_location"] + "\"class=\"table_image\"></a>"
+	elem += "<a href=\"images/" + image["file"] +"\"><img src=\"thumbnails/" + image["thumbnail"] + "\"class=\"table_image\"></a>"
 	if ("name" in image) {
-		elem += "<a href=\"images/" + image["file_location"] + "\">" + image["name"] + "</a><br>"
+		elem += "<a href=\"images/" + image["file"] + "\">" + image["name"] + "</a><br>"
 		elem +=" <span class=\"filename\"><code>"+f+"</code><br>"
 	} else { // old style just link file
-		elem += "<a href=\"images/"+image["file_location"]+"\">"+f+"</a><br>"
+		elem += "<a href=\"images/"+image["file"]+"\">"+f+"</a><br>"
 	}
 	elem += "<dl>"
 	elem += "<dt>Color</dt><dd>"+image["colorspace"]+"</dd>"
