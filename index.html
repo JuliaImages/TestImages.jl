@@ -63,7 +63,10 @@
 						If you have metadata, a more common name, a url for the source or an author, you can add that to the <code>metadata.yml</code>.
 					</li>
 					<li>
-						Run <code>build.jl</code> : Do <code>julia build.jl</code> to generate the javascript file for the documentation. This will also generate a <code>thumbnails</code> folder.
+						Run <code>build.jl</code> : Do <code>julia build.jl</code> to generate the javascript file for the documentation.
+						This will also generate an according thumbnail in the <code>thumbnails</code> folder.
+						<br> To recreate a thumbail, delete the previously created thumbnail.
+						<br> To add a file extension, edit the <code>imageFileExtensions</code> array in the <code>build.jl</code>
 					</li>
 					<li>
 						Do <code>git add --all</code> to stage the changes for a commit.
