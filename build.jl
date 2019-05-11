@@ -12,7 +12,7 @@ f = readdir("images/")
 imageMetadata = YAML.load(open("metadata.yml"))
 
 # Initialize Thumbnails directory if it does not yet exist
-if ~isdir("thumbnails")
+if !isdir("thumbnails")
   println("Creating thumbnails/ folder.")
   mkdir("thumbnails")
 end
