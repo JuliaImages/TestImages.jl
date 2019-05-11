@@ -17,7 +17,7 @@ if !isdir("thumbnails")
   mkdir("thumbnails")
 end
 # copy default if not yet copied
-if ~isfile("thumbnails/cannot_be_displayed.png")
+if !isfile("thumbnails/cannot_be_displayed.png")
     println("Copying cannot_be_displayed.png")
     cp("cannot_be_displayed.png","thumbnails/cannot_be_displayed.png")
 end
