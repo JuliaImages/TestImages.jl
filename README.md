@@ -13,28 +13,19 @@ Full documentation and description of the images available in TestImages.jl can 
 
 ## Installation
 
-On Linux and OSX, this should install automatically. If you find yourself missing most of the images described in the documentation, please try `Pkg.build("TestImages")`, which should trigger another attempt to download the images.
-
-In case you would like to download other images from the repository not in the standard set, you can call the ```testimage``` with the image name and it will be downloaded from the repository.
-
-On Windows, the ```download``` command, used to download images from the archives, is not fully supported. You can manually download the files listed in ```deps\build.jl``` from the ```images``` folder of the ```gh-pages``` branch of this repository and place them in ```TestImages\images```.
+`TestImages` doesn't support image IO by itself, which means you need to install some backends on your choice, e.g., [ImageMagick.jl](https://github.com/JuliaIO/ImageMagick.jl), [QuartzImageIO](https://github.com/JuliaIO/QuartzImageIO.jl), [OMETIFF.jl](https://github.com/tlnagy/OMETIFF.jl).
 
 ## Usage
 
 ```
 using TestImages
 
-img = testimage("cameraman")
+img = testimage("cameraman.tif") # fullname
+img = testimage("cameraman) # without extension works
+img = testimage("cam") # with only partial name also works
 ```
 
-The standard test images are downloaded to an `images/` directory
-inside this package.  Any image file stored in this directory is
-accessible through the `testimage` function.  You can supply the file
-extension (e.g., ".png", ".tif", etc), but it is not required. Indeed,
-the matching is performed using just the portion of the filename you
-supply, so `testimage("cam")` yields the same result.
-
-In case the image is not present locally, the ```testimage``` function will check the online repository and download it for you.
+Images will be automatically downloaded into artifact folders (e.g., `images/` for julia `< v1.3`) when you load the image for the first time.
 
 ## Contributing
 

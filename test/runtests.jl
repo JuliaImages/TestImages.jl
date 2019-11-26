@@ -8,5 +8,3 @@ img = testimage("mri-stack")
 @test map(step, axisvalues(img)) == (1,1,5)
 @test_nowarn testimage("c")
 @test_throws ArgumentError testimage("nonexistence.png")
-
-@test all([f in TestImages.remotefiles for f in readdir(TestImages.imagedir)])
