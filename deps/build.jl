@@ -1,9 +1,4 @@
-imagedir = joinpath(dirname(@__FILE__), "..", "images")
-if !isdir(imagedir)
-    mkdir(imagedir)
-end
-
-REPO_URL = "https://github.com/timholy/TestImages.jl/blob/gh-pages/images/"
+using TestImages
 
 stdfiles = [
     "cameraman.tif" ,
@@ -28,12 +23,4 @@ stdfiles = [
 ]
 
 @info "Downloading standard test images"
-for f in stdfiles
-    fn = joinpath(imagedir, f)
-    if !isfile(fn)
-        @info "Downloading $fn"
-        download(REPO_URL*f*"?raw=true", joinpath(imagedir, f))
-    end
-end
-
-@info "Download Completed."
+foreach(x->testimage(x; download_only=true), stdfiles)
