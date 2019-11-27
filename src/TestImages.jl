@@ -105,6 +105,7 @@ if VERSION >= v"1.3"
                            file_hash)
         end
 
+        # this is a trivial operation if artifacts already exist
         artifact_dir = artifact_path(file_hash)
         imagefile = _download_image(artifact_dir, imagename)
 
