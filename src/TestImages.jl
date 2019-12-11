@@ -1,9 +1,7 @@
 module TestImages
 using FileIO, AxisArrays
-if VERSION >= v"1.3"
-    using Pkg.Artifacts
-    const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
-end
+using Pkg.Artifacts
+const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
 
 export testimage
 
@@ -48,29 +46,28 @@ remotefiles = [
 ]
 
 """
-    testimage(filename; download_only=false, [ops...])
+    img = testimage(filename; download_only=false, [ops...])
 
 Load test image that partially matches `filename`, the first match is used if there're more
 than one.
 
 If `download_only=true`, the full filepath is returned.
-Any other keyword arguments `ops` will be passed to image IO backend through `FileIO.load`
-function.
+Any other keyword arguments `ops` will be passed to image IO backend through `FileIO.load`.
 
 # Example
 
 ```julia
 julia> using TestImages
-julia> testimage("cameraman.tif") # fullname
-julia> testimage("cameraman") # without extension works
-julia> testimage("c") # with only partial name also works
+julia> img = testimage("cameraman.tif"); # fullname
+julia> img = testimage("cameraman"); # without extension works
+julia> img = testimage("c"); # with only partial name also works
 ```
 
-Use `TestImages.remotefiles` to get a full list of available images. You can also check
+`TestImages.remotefiles` stores the full list of available images. You can also check
 https://testimages.juliaimages.org/
 """
 function testimage(filename; download_only = false, ops...)
-    imagefile = download_artifacts(full_imagename(filename))
+    imagefile = image_path(full_imagename(filename))
 
     download_only && return imagefile
 
@@ -83,7 +80,11 @@ function testimage(filename; download_only = false, ops...)
     img
 end
 
-"""get the first match of `filename` in remotefiles"""
+"""
+    fullname = full_imagename(shortname)
+
+Get the first match of `shortname` in `TestImages.remotefiles`
+"""
 function full_imagename(filename)
     idx = findfirst(remotefiles) do x
         startswith(x, filename)
@@ -93,37 +94,21 @@ function full_imagename(filename)
     return remotefiles[idx]
 end
 
-# Pkg.Artifacts is introduced in julia v1.3.0
-if VERSION >= v"1.3"
-    function download_artifacts(imagename)
-        file_hash = artifact_hash(imagename, artifacts_toml)
+function image_path(imagename)
+    file_hash = artifact_hash(imagename, artifacts_toml)
 
+    if file_hash === nothing || !artifact_exists(file_hash)
+        new_hash = create_artifact() do artifact_dir
+            download(REPO_URL*imagename*"?raw=true", joinpath(artifact_dir, imagename))
+        end
         if file_hash === nothing
-            file_hash = create_artifact(x->_download_image(x, imagename))
             bind_artifact!(artifacts_toml,
                            imagename,
-                           file_hash)
+                           new_hash)
         end
-
-        # this is a trivial operation if artifacts already exist
-        artifact_dir = artifact_path(file_hash)
-        imagefile = _download_image(artifact_dir, imagename)
-
-        return imagefile
+        file_hash = new_hash
     end
-else
-    const imagedir = joinpath(dirname(@__FILE__), "..", "images")
-    download_artifacts(imagename) = _download_image(imagedir, imagename)
-end
-
-function _download_image(imagedir, imagename)
-    isdir(imagedir) || mkpath(imagedir)
-    imagefile = joinpath(imagedir, imagename)
-    if !isfile(imagefile)
-        @info "Found "*imagename*" in the online repository. Downloading to the images directory."
-        download(REPO_URL*imagename*"?raw=true", imagefile)
-    end
-    return imagefile
+    return joinpath(artifact_path(file_hash), imagename)
 end
 
 end # module

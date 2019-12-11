@@ -3,7 +3,6 @@ os:
   - linux
   - osx
 julia:
-  - 1.0
   - 1.3
   - nightly
 notifications:
@@ -11,4 +10,4 @@ notifications:
 
 after_success:
   # push coverage results to Codecov
-  - julia -e 'using Pkg; cd(joinpath(pathof(TestImages), "..", "..")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
+  - julia -e 'using Pkg, TestImages; cd(joinpath(pathof(TestImages), "..", "..")); Pkg.add("Coverage"); using Coverage; Codecov.submit(Codecov.process_folder())'
