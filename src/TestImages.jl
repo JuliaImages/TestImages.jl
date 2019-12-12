@@ -1,9 +1,9 @@
 module TestImages
 using FileIO, AxisArrays
+using Pkg.Artifacts
+const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
 
 export testimage
-
-const imagedir = joinpath(dirname(@__FILE__), "..", "images")
 
 REPO_URL = "https://github.com/JuliaImages/TestImages.jl/blob/gh-pages/images/"
 
@@ -46,53 +46,69 @@ remotefiles = [
 ]
 
 """
-    testimage(filename, [ops...])
+    img = testimage(filename; download_only=false, [ops...])
 
-load test image that partially matches `filename`, the first match is used if there're more than one. If `ops` is specified, it will be passed to `load` function. use `TestImages.remotefiles` to get a full list of available images.
+Load test image that partially matches `filename`, the first match is used if there're more
+than one.
+
+If `download_only=true`, the full filepath is returned.
+Any other keyword arguments `ops` will be passed to image IO backend through `FileIO.load`.
 
 # Example
+
 ```julia
 julia> using TestImages
-julia> testimage("cameraman.tif")
-julia> testimage("cameraman")
-julia> testimage("c")
+julia> img = testimage("cameraman.tif"); # fullname
+julia> img = testimage("cameraman"); # without extension works
+julia> img = testimage("c"); # with only partial name also works
 ```
-"""
-function testimage(filename, ops...)
-    isdir(imagedir) || mkpath(imagedir)
-    imagefile = joinpath(imagedir, filename)
-    if !isfile(imagefile)
-        fls = readdir(imagedir)
-        havefile = false
-        for f in fls
-            if startswith(f, filename)
-                imagefile = joinpath(imagedir, f)
-                havefile = true
-                break
-            end
-        end
 
-        if !havefile
-            @info "Could not find "*filename*" in directory images/ . Checking if it exists in the online repository."
-            for f in remotefiles
-                if startswith(f, filename)
-                    @info "Found "*filename*" in the online repository. Downloading to the images directory."
-                    download(REPO_URL*f*"?raw=true", joinpath(imagedir, f))
-                    havefile = true
-                    imagefile = joinpath(imagedir, f)
-                    break
-                end
-            end
-        end
-        havefile || throw(ArgumentError("$filename not found in the directory images/ or the online repository. use `TestImages.remotefiles` to get a full list of test images"))
-    end
-    img = load(imagefile, ops...)
-    if startswith(basename(imagefile), "mri-stack")
+`TestImages.remotefiles` stores the full list of available images. You can also check
+https://testimages.juliaimages.org/
+"""
+function testimage(filename; download_only = false, ops...)
+    imagefile = image_path(full_imagename(filename))
+
+    download_only && return imagefile
+
+    img = load(imagefile; ops...)
+    if basename(imagefile) == "mri-stack.tif"
         # orientation is posterior-right-superior,
         # see http://www.grahamwideman.com/gw/brain/orientation/orientterms.htm
         return AxisArray(img, (:P, :R, :S), (1, 1, 5))
     end
     img
+end
+
+"""
+    fullname = full_imagename(shortname)
+
+Get the first match of `shortname` in `TestImages.remotefiles`
+"""
+function full_imagename(filename)
+    idx = findfirst(remotefiles) do x
+        startswith(x, filename)
+    end
+    idx === nothing && throw(ArgumentError("$filename not found in the online repository, use `TestImages.remotefiles` to get a full list of test images."))
+
+    return remotefiles[idx]
+end
+
+function image_path(imagename)
+    file_hash = artifact_hash(imagename, artifacts_toml)
+
+    if file_hash === nothing || !artifact_exists(file_hash)
+        new_hash = create_artifact() do artifact_dir
+            download(REPO_URL*imagename*"?raw=true", joinpath(artifact_dir, imagename))
+        end
+        if file_hash === nothing
+            bind_artifact!(artifacts_toml,
+                           imagename,
+                           new_hash)
+        end
+        file_hash = new_hash
+    end
+    return joinpath(artifact_path(file_hash), imagename)
 end
 
 end # module
