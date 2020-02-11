@@ -1,6 +1,8 @@
 # TestImages
 
-[![Build Status](https://travis-ci.org/JuliaImages/TestImages.jl.png)](https://travis-ci.org/JuliaImages/TestImages.jl)
+[![][travis-img]][travis-url]
+[![][pkgeval-img]][pkgeval-url]
+[![][codecov-img]][codecov-url]
 
 This package provides a convenient Julia interface for loading
 [standard named test images](https://en.wikipedia.org/wiki/Standard_test_image).
@@ -30,3 +32,12 @@ Images will be automatically downloaded into artifact folders (e.g., `images/` f
 ## Contributing
 
 A detailed guide on contributing to TestImages.jl can be found in the documentation mentioned above.
+
+<!-- URLS -->
+
+[pkgeval-img]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/T/TestImages.svg
+[pkgeval-url]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/report.html
+[travis-img]: https://travis-ci.org/JuliaImages/TestImages.jl.svg?branch=master
+[travis-url]: https://travis-ci.org/JuliaImages/TestImages.jl
+[codecov-img]: https://codecov.io/github/JuliaImages/TestImages.jl/coverage.svg?branch=master
+[codecov-url]: https://codecov.io/github/JuliaImages/TestImages.jl?branch=master
