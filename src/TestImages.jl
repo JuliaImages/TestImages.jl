@@ -63,8 +63,12 @@ julia> img = testimage("cameraman"); # without extension works
 julia> img = testimage("c"); # with only partial name also works
 ```
 
-`TestImages.remotefiles` stores the full list of available images. You can also check
+# Extended help
+
+The following is a complete list of testimages, you can also check them at
 https://testimages.juliaimages.org/
+
+$(reduce((x, y)->join([x, "\n - \`\"", splitext(y)[1], "\"\`"]), sort(remotefiles); init=""))
 """
 function testimage(filename; download_only = false, ops...)
     imagefile = image_path(full_imagename(filename))
