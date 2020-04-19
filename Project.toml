@@ -6,13 +6,11 @@ version = "0.6.1"
 AxisArrays = "39de3d68-74b9-583c-8d2d-e117c070f3a9"
 ColorTypes = "3da002f7-5984-5a60-b8a6-cbb66c0b333f"
 FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
-ZipFile = "a5390f91-8eb1-5f08-bee0-b1d1ffed6cea"
 
 [compat]
 AxisArrays = "0.3, 0.4"
 ColorTypes = "0.8, 0.9, 0.10"
 FileIO = "1"
-ZipFile = "0.7, 0.8, 0.9"
 julia = "1"
 
 [extras]
