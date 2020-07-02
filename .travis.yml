@@ -1,4 +1,8 @@
 language: julia
+cache:
+  directories:
+  - $HOME/.julia/artifacts
+
 os:
   - linux
   - osx
