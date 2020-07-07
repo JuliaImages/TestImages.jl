@@ -101,7 +101,7 @@ function full_imagename(filename)
         if isnothing(best_match[2])
             similar_matches = remotefiles[_findall(filename)]
             if !isempty(similar_matches)
-                similar_matches_msg = "  * " * join(similar_matches, "\n  * ")
+                similar_matches_msg = "  * \"" * join(similar_matches, "\"\n  * \"") * "\""
                 warn_msg = "$(warn_msg) Do you mean one of the following?\n$(similar_matches_msg)"
             end
             throw(ArgumentError(warn_msg))
@@ -130,7 +130,7 @@ function image_path(imagename)
     return joinpath(artifact_path(file_hash), imagename)
 end
 
-_findall(name; min_score=0.5) = findall(name, remotefiles, TokenMax(Levenshtein()), min_score=min_score)
-_findmax(name; min_score=0.8) = findmax(name, remotefiles, TokenMax(Levenshtein()), min_score=min_score)
+_findall(name; min_score=0.6) = findall(name, remotefiles, Jaro(), min_score=min_score)
+_findmax(name; min_score=0.9) = findmax(name, remotefiles, Jaro(), min_score=min_score)
 
 end # module
