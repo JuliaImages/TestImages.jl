@@ -130,7 +130,7 @@ function image_path(imagename)
     return joinpath(artifact_path(file_hash), imagename)
 end
 
-_findall(name; min_score=0.6) = findall(name, remotefiles, Jaro(), min_score=min_score)
-_findmax(name; min_score=0.9) = findmax(name, remotefiles, Jaro(), min_score=min_score)
+_findall(name; min_score=0.6) = findall(name, remotefiles, Winkler(Jaro()), min_score=min_score)
+_findmax(name; min_score=0.8) = findmax(name, remotefiles, Winkler(Jaro()), min_score=min_score)
 
 end # module

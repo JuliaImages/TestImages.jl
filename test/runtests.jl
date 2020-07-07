@@ -17,6 +17,7 @@ img = testimage("mri-stack")
 @test_nowarn testimage("c")
 
 # mismatch handling
+# Note: the behavior might change as `remotefiles` changes
 err_str = @except_str testimage("nonexistence.png") ArgumentError
 @test_reference "references/nonexistence_err.txt" err_str
 
@@ -26,5 +27,5 @@ err_str = @except_str testimage("leans") ArgumentError
 err_str = @except_str testimage("abcd.png") ArgumentError
 @test_reference "references/abcd_err.txt" err_str
 
-err_str = @capture_err testimage("leaves.png")
-@test_reference "references/leaves_warning.txt" split(err_str, "\n")[1]
+err_str = @capture_err testimage("camereman")
+@test_reference "references/camereman_warning.txt" split(err_str, "\n")[1]
