@@ -1,0 +1,4 @@
+ArgumentError: "abcd.png" not found in `TestImages.remotefiles`. Do you mean one of the following?
+  * autumn_leaves.png
+  * lena_gray_16bit.png
+  * toucan.png

@@ -1,0 +1,2 @@
+ArgumentError: "leans" not found in `TestImages.remotefiles`. Do you mean one of the following?
+  * autumn_leaves.png

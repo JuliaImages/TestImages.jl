@@ -1,6 +1,7 @@
 module TestImages
 using FileIO, AxisArrays
 using Pkg.Artifacts
+using StringDistances
 const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
 
 export testimage
@@ -93,8 +94,22 @@ function full_imagename(filename)
     idx = findfirst(remotefiles) do x
         startswith(x, filename)
     end
-    idx === nothing && throw(ArgumentError("$filename not found in the online repository, use `TestImages.remotefiles` to get a full list of test images."))
+    if idx === nothing
+        warn_msg = "\"$filename\" not found in `TestImages.remotefiles`."
 
+        best_match = _findmax(filename)
+        if isnothing(best_match[2])
+            similar_matches = remotefiles[_findall(filename)]
+            if !isempty(similar_matches)
+                similar_matches_msg = "  * " * join(similar_matches, "\n  * ")
+                warn_msg = "$(warn_msg) Do you mean one of the following?\n$(similar_matches_msg)"
+            end
+            throw(ArgumentError(warn_msg))
+        else
+            idx = best_match[2]
+            @warn "$(warn_msg) Load \"$(remotefiles[idx])\" instead."
+        end
+    end
     return remotefiles[idx]
 end
 
@@ -114,5 +129,8 @@ function image_path(imagename)
     end
     return joinpath(artifact_path(file_hash), imagename)
 end
+
+_findall(name; min_score=0.5) = findall(name, remotefiles, TokenMax(Levenshtein()), min_score=min_score)
+_findmax(name; min_score=0.8) = findmax(name, remotefiles, TokenMax(Levenshtein()), min_score=min_score)
 
 end # module
