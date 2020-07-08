@@ -1,0 +1,4 @@
+ArgumentError: "leans" not found in `TestImages.remotefiles`. Do you mean one of the following?
+  * "hela-cells.tif"
+  * "jetplane.tif"
+  * "multi-channel-time-series.ome.tif"
