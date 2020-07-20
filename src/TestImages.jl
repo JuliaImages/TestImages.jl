@@ -112,7 +112,7 @@ function full_imagename(filename)
 end
 
 function image_path(imagename)
-    ensure_artifact_installed("images", artifacts_toml; quiet_download=true)
+    ensure_artifact_installed("images", artifacts_toml)
     
     image_dir = artifact_path(artifact_hash("images", artifacts_toml))
     return joinpath(image_dir, imagename)
