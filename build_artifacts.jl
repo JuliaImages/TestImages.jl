@@ -23,5 +23,5 @@ tarball_hash = open(io -> Tar.tree_hash(decompress(io)), tarball)
 if haskey(ENV, "GITHUB_ACTIONS")
     # set the output value of the current stage in Github Action
     # https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-output-parameter
-    println("::set-output name={tarball_hash}::{$tarball_hash}")
+    println("::set-output name=tarball_hash::$tarball_hash")
 end
