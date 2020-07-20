@@ -17,7 +17,7 @@ jobs:
         id: build_artifacts
         run: |
           julia --color=yes --project=. -e "using Pkg; Pkg.instantiate()"
-          & julia --color=yes --project=. build_artifacts.jl
+          julia --color=yes --project=. build_artifacts.jl
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
