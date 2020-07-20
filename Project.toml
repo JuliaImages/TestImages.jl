@@ -1,0 +1,7 @@
+[deps]
+FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
+ImageCore = "a09fc81d-aa75-5fe9-8630-4744c3626534"
+ImageMagick = "6218d12a-5da1-5696-b52f-db25d2ecc6d1"
+ImageTransformations = "02fcd773-0e25-5acc-982a-7f6622650795"
+OMETIFF = "2d0ec36b-e807-5756-994b-45af29551fcf"
+YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"

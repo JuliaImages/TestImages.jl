@@ -1,4 +1,4 @@
-using Images, YAML, ColorTypes
+using ImageTransformations, YAML, ImageCore, FileIO
 # Settings
 # (a) white list file endings
 imageFileExtensions = [".gif",".jpg",".jpeg",".png",".tif",".tiff"]
@@ -40,7 +40,7 @@ for i in f
             file=fname*".png"
             if !isfile(joinpath("thumbnails/",file))
                 img_size = size(img)
-                resized_image = Images.imresize(img, (Int(ceil(img_size[1]*HEIGHT/img_size[2])), HEIGHT))
+                resized_image = imresize(img, (Int(ceil(img_size[1]*HEIGHT/img_size[2])), HEIGHT))
                 save(joinpath("thumbnails/",file), resized_image)
                 print("--- tumbnails/"*fname*".png created. ---")
             else
