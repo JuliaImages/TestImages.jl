@@ -137,7 +137,8 @@ MRI version [2] is calculated.
 # References
 
 [1] Shepp, Lawrence A., and Benjamin F. Logan. "The Fourier reconstruction of a head section." _IEEE Transactions on nuclear science_ 21.3 (1974): 21-43.
-[2] Toft, Peter Aundal. "The Radon transform-theory and implementation." (1996).
+[2] Toft, Peter Aundal. "The Radon transform-theory and implementation." (1996): 201.
+[3] Jain, Anil K. Fundamentals of digital image processing. _Prentice-Hall, Inc._, (1989): 439.
 """
 function shepp_logan(N::Integer, M::Integer; high_contrast=true)
     x = range(-1, stop=1, length=M)'
@@ -150,11 +151,13 @@ function shepp_logan(N::Integer, M::Integer; high_contrast=true)
     theta = [0, 0, -0.1pi, 0.1pi, 0, 0, 0, 0, 0, 0]
   
     if high_contrast
-        # high contrast (MRI) version of the phantom
+        # high contrast (MRI) version of the phantom -- [2] p.201
         grayLevel = [1, -0.8, -0.2, -0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
     else
-        # original (CT) version of the phantom
+        # original (CT) version of the phantom -- [1]
         grayLevel = [2, -0.98, -0.02, -0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01]
+        # [3] p.439 uses the following setting, and is what MATLAB's built-in `phantom` uses
+        # grayLevel = [1, -0.98, -0.02, -0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01]
     end
   
     P = zeros(N, M)
