@@ -1,6 +1,5 @@
 on:
   push:
-    branches: gh-pages
     tags:
       - 'v*-artifacts'
   
