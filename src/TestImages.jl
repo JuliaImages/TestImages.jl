@@ -6,8 +6,6 @@ const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
 
 export testimage
 
-REPO_URL = "https://github.com/JuliaImages/TestImages.jl/blob/gh-pages/images/"
-
 remotefiles = [
     "autumn_leaves.png" ,
     "blobs.gif" ,
@@ -114,20 +112,10 @@ function full_imagename(filename)
 end
 
 function image_path(imagename)
-    file_hash = artifact_hash(imagename, artifacts_toml)
-
-    if file_hash === nothing || !artifact_exists(file_hash)
-        new_hash = create_artifact() do artifact_dir
-            download(REPO_URL*imagename*"?raw=true", joinpath(artifact_dir, imagename))
-        end
-        if file_hash === nothing
-            bind_artifact!(artifacts_toml,
-                           imagename,
-                           new_hash)
-        end
-        file_hash = new_hash
-    end
-    return joinpath(artifact_path(file_hash), imagename)
+    ensure_artifact_installed("images", artifacts_toml; quiet_download=true)
+    
+    image_dir = artifact_path(artifact_hash("images", artifacts_toml))
+    return joinpath(image_dir, imagename)
 end
 
 _findall(name; min_score=0.6) = findall(name, remotefiles, Winkler(Jaro()), min_score=min_score)
