@@ -1,5 +1,6 @@
 using TestImages, FixedPointNumbers, Colors, AxisArrays
 using Test, ReferenceTests, Suppressor
+using ImageContrastAdjustment
 
 # make sure all files in remotefiles are valid image files
 foreach(TestImages.remotefiles) do img_name
@@ -29,3 +30,19 @@ err_str = @except_str testimage("abcd.png") ArgumentError
 
 err_str = @capture_err testimage("camereman")
 @test_reference "references/camereman_warning.txt" split(err_str, "\n")[1]
+
+# Shepp-Logan phantom
+@testset "shepp_logan" begin
+    @test eltype(shepp_logan(64)) == Gray{Float64}
+    @test size(shepp_logan(64)) == (64, 64)
+    @test size(shepp_logan(64, 128)) == (64, 128)
+    @test shepp_logan(64; high_contrast=true) == shepp_logan(64)
+
+    phantom_ct = shepp_logan(128; high_contrast=false)
+    phantom_mri = shepp_logan(128; high_contrast=true)
+
+    # CT value exceeds [0, 1] range, so we need to stretch its value to make references
+    # FIXME: ReferenceTests is broken for *.png references
+    @test_reference "references/shepp_logan_CT_128.txt" adjust_histogram(phantom_ct, LinearStretching())
+    @test_reference "references/shepp_logan_MRI_128.txt" phantom_mri
+end

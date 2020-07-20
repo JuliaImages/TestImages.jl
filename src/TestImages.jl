@@ -2,9 +2,10 @@ module TestImages
 using FileIO, AxisArrays
 using Pkg.Artifacts
 using StringDistances
+using ColorTypes
 const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
 
-export testimage
+export testimage, shepp_logan
 
 remotefiles = [
     "autumn_leaves.png" ,
@@ -113,12 +114,60 @@ end
 
 function image_path(imagename)
     ensure_artifact_installed("images", artifacts_toml)
-    
+
     image_dir = artifact_path(artifact_hash("images", artifacts_toml))
     return joinpath(image_dir, imagename)
 end
 
 _findall(name; min_score=0.6) = findall(name, remotefiles, Winkler(Jaro()), min_score=min_score)
 _findmax(name; min_score=0.8) = findmax(name, remotefiles, Winkler(Jaro()), min_score=min_score)
+
+
+"""
+    phantom = shepp_logan(N, [M=N]; high_contrast=true)
+
+Output the NxM Shepp-Logan phantom, which is a standard test image usually used
+for comparing image reconstruction algorithms in the field of computed
+tomography (CT) and magnetic resonance imaging (MRI).
+
+If the argument `M` is omitted, the phantom is of size `NxN`. When setting the keyword argument
+`high_constrast` to false, the CT version [1] of the phantom is created. Otherwise, the high contrast
+MRI version [2] is calculated.
+
+# References
+
+[1] Shepp, Lawrence A., and Benjamin F. Logan. "The Fourier reconstruction of a head section." _IEEE Transactions on nuclear science_ 21.3 (1974): 21-43.
+[2] Toft, Peter Aundal. "The Radon transform-theory and implementation." (1996).
+"""
+function shepp_logan(N::Integer, M::Integer; high_contrast=true)
+    x = range(-1, stop=1, length=M)'
+    y = range(1, stop=-1, length=N)
+  
+    centerX = [0, 0, 0.22, -0.22, 0, 0, 0, -0.08, 0, 0.06]
+    centerY = [0, -0.0184, 0, 0, 0.35, 0.1, -0.1, -0.605, -0.605, -0.605]
+    majorAxis = [0.69, 0.6624, 0.11, 0.16, 0.21, 0.046, 0.046, 0.046, 0.023, 0.023]
+    minorAxis = [0.92, 0.874, 0.31, 0.41, 0.25, 0.046, 0.046, 0.023, 0.023, 0.046]
+    theta = [0, 0, -0.1pi, 0.1pi, 0, 0, 0, 0, 0, 0]
+  
+    if high_contrast
+        # high contrast (MRI) version of the phantom
+        grayLevel = [1, -0.8, -0.2, -0.2, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]
+    else
+        # original (CT) version of the phantom
+        grayLevel = [2, -0.98, -0.02, -0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01]
+    end
+  
+    P = zeros(N, M)
+    for l = 1:length(theta)
+      P .+= grayLevel[l] .* (
+             abs2.( (cos(theta[l]) .* (x .- centerX[l]) .+
+                sin(theta[l]) .* (y .- centerY[l])) ./ majorAxis[l] ) .+
+             abs2.( (sin(theta[l]) .* (x .- centerX[l]) .-
+                cos(theta[l]) .* (y .- centerY[l])) ./ minorAxis[l] ) .< 1 )
+    end
+  
+    return Gray{Float64}.(P) # to not depend on ColorVectorSpaces
+end
+shepp_logan(N::Integer; kwargs...) = shepp_logan(N, N; kwargs...)
 
 end # module
