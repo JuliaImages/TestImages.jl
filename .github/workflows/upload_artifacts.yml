@@ -12,6 +12,17 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Cache artifacts
+        uses: actions/cache@v1
+        env:
+          cache-name: cache-artifacts
+        with:
+          path: ~/.julia/artifacts 
+          key: ${{ runner.os }}-test-${{ env.cache-name }}-${{ hashFiles('**/Project.toml') }}
+          restore-keys: |
+            ${{ runner.os }}-test-${{ env.cache-name }}-
+            ${{ runner.os }}-test-
+            ${{ runner.os }}-
       - name: Build artifacts
         id: build_artifacts
         run: |
