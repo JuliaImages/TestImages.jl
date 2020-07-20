@@ -41,6 +41,7 @@ jobs:
             ```
             [images]
             git-tree-sha1 = "${{ steps.build_artifacts.outputs.tree_hash }}"
+            lazy = true
 
                 [[images.download]]
                 sha256 = "${{ steps.build_artifacts.outputs.tarball_hash }}"
