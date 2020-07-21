@@ -160,16 +160,16 @@ function shepp_logan(N::Integer, M::Integer; high_contrast=true)
         # grayLevel = [1, -0.98, -0.02, -0.02, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01]
     end
   
-    P = zeros(N, M)
+    P = zeros(Gray{Float64}, N, M)
     for l = 1:length(theta)
-      P .+= grayLevel[l] .* (
+      P .= gray.(P) .+ grayLevel[l] .* (
              abs2.( (cos(theta[l]) .* (x .- centerX[l]) .+
                 sin(theta[l]) .* (y .- centerY[l])) ./ majorAxis[l] ) .+
              abs2.( (sin(theta[l]) .* (x .- centerX[l]) .-
                 cos(theta[l]) .* (y .- centerY[l])) ./ minorAxis[l] ) .< 1 )
     end
   
-    return Gray{Float64}.(P) # to not depend on ColorVectorSpaces
+    return P
 end
 shepp_logan(N::Integer; kwargs...) = shepp_logan(N, N; kwargs...)
 
