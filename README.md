@@ -25,6 +25,8 @@ using TestImages
 img = testimage("cameraman.tif") # fullname
 img = testimage("cameraman) # without extension works
 img = testimage("cam") # with only partial name also works
+
+phantom = shepp_logan(256) # generate the Shepp-Logan phantom image
 ```
 
 Images will be automatically downloaded into artifact folders (e.g., `images/` for julia `< v1.3`) when you load the image for the first time.
