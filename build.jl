@@ -1,7 +1,7 @@
 using ImageTransformations, YAML, ImageCore, FileIO
 # Settings
 # (a) white list file endings
-imageFileExtensions = [".gif",".jpg",".jpeg",".png",".tif",".tiff"]
+imageFileExtensions = [".gif",".jpg",".jpeg",".png",".tif",".tiff", ".bmp"]
 
 # Open the HTML prequel and put it into our content we build.
 content = read("open.txt",String)
