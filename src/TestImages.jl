@@ -148,7 +148,7 @@ function shepp_logan(N::Integer, M::Integer; high_contrast=true)
         if ϕ[l] == 0.0
             @. P = gray(P) + A[l] * _ellipse(x - x₀[l], y - y₀[l], a[l], b[l])
         else
-            sin_ϕ, cos_ϕ = sincosd(ϕ[l])
+            sin_ϕ, cos_ϕ = sind(ϕ[l]), cosd(ϕ[l])
             @. P = gray(P) + A[l] * _ellipse(x - x₀[l], y - y₀[l], a[l], b[l], sin_ϕ, cos_ϕ)
         end
     end
