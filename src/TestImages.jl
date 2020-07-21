@@ -157,7 +157,7 @@ function shepp_logan(N::Integer, M::Integer; high_contrast=true)
     y₀ =  (0.0 , -0.0184,  0.0  ,  0.0  , 0.35, 0.1  , -0.1  , -0.605, -0.605, -0.605)
     a  =  (0.69,  0.6624,  0.11 ,  0.16 , 0.21, 0.046,  0.046,  0.046,  0.023,  0.023)
     b  =  (0.92,  0.874 ,  0.31 ,  0.41 , 0.25, 0.046,  0.046,  0.023,  0.023,  0.046)
-    ϕ  =  (0.0 ,  0.0   , -0.1pi,  0.1pi, 0.0 , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
+    ϕ  =  (0.0 ,  0.0   , -18.0 ,  18.0 , 0.0 , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
 
     function _ellipse(dx, dy, a, b, sin_ϕ, cos_ϕ)
         tx = cos_ϕ * dx + sin_ϕ * dy
@@ -174,7 +174,7 @@ function shepp_logan(N::Integer, M::Integer; high_contrast=true)
         if ϕ[l] == 0.0
             @. P = gray(P) + A[l] * _ellipse(x - x₀[l], y - y₀[l], a[l], b[l])
         else
-            sin_ϕ, cos_ϕ = sincos(ϕ[l])
+            sin_ϕ, cos_ϕ = sincosd(ϕ[l])
             @. P = gray(P) + A[l] * _ellipse(x - x₀[l], y - y₀[l], a[l], b[l], sin_ϕ, cos_ϕ)
         end
     end
