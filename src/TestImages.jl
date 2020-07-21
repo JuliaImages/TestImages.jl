@@ -162,15 +162,27 @@ function shepp_logan(N::Integer, M::Integer; high_contrast=true)
   
     P = zeros(Gray{Float64}, N, M)
     for l = 1:length(theta)
-      P .= gray.(P) .+ grayLevel[l] .* (
-             abs2.( (cos(theta[l]) .* (x .- centerX[l]) .+
-                sin(theta[l]) .* (y .- centerY[l])) ./ majorAxis[l] ) .+
-             abs2.( (sin(theta[l]) .* (x .- centerX[l]) .-
-                cos(theta[l]) .* (y .- centerY[l])) ./ minorAxis[l] ) .< 1 )
+        dx = x .- centerX[l]
+        dy = y .- centerY[l]
+        if theta[l] == 0.0
+            P .= gray.(P) .+ grayLevel[l] .* _ellipse.(dx, dy, majorAxis[l], minorAxis[l])
+        else
+            P .= gray.(P) .+ grayLevel[l] .* 
+                _ellipse.(dx, dy, majorAxis[l], minorAxis[l], cos(theta[l]), sin(theta[l]))
+        end
     end
   
     return P
 end
 shepp_logan(N::Integer; kwargs...) = shepp_logan(N, N; kwargs...)
+
+@inline function _ellipse(dx, dy, a, b, cos_t, sin_t)
+    tx = cos_t * dx + sin_t * dy
+    ty = sin_t * dx - cos_t * dy
+    abs2(tx * b) + abs2(ty * a) < (a * b)^2
+end
+@inline function _ellipse(dx, dy, a, b)
+    abs2(dx * b) + abs2(dy * a) < (a * b)^2
+end
 
 end # module
