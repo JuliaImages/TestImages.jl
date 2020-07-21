@@ -24,7 +24,11 @@ On Windows, the ```download``` command, used to download images from the archive
 ```
 using TestImages
 
-img = testimage("cameraman")
+img = testimage("cameraman.tif") # fullname
+img = testimage("cameraman) # without extension works
+img = testimage("cam") # with only partial name also works
+
+phantom = shepp_logan(256) # generate the Shepp-Logan phantom image
 ```
 
 The standard test images are downloaded to an `images/` directory
