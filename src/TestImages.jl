@@ -2,7 +2,11 @@ module TestImages
 using FileIO, AxisArrays
 using ColorTypes
 
-export testimage, shepp_logan
+export testimage
+
+# TODO: export shepp_logan when we remove Images.shepp_logan
+# https://github.com/JuliaImages/Images.jl/pull/904
+# export shepp_logan
 
 const imagedir = joinpath(dirname(@__FILE__), "..", "images")
 
@@ -111,10 +115,17 @@ MRI version [2] is calculated.
 # References
 
 [1] Shepp, Lawrence A., and Benjamin F. Logan. "The Fourier reconstruction of a head section." _IEEE Transactions on nuclear science_ 21.3 (1974): 21-43.
+
 [2] Toft, Peter Aundal. "The Radon transform-theory and implementation." (1996): 201.
+
 [3] Jain, Anil K. Fundamentals of digital image processing. _Prentice-Hall, Inc._, (1989): 439.
 """
-function shepp_logan(N::Integer, M::Integer; high_contrast=true)
+function shepp_logan(N::Integer, M::Integer; high_contrast=true, highContrast=nothing)
+    if highContrast !== nothing
+        # compatbitity to Images.shepp_logan
+        # remove this when we remove Images.shepp_logan
+        Base.depwarn("keyword `highContrast` is deprecated, use `high_contrast` instead.", :shepp_logan)
+    end
     x = Array(range(-1, stop=1, length=M)')
     y = Array(range(1, stop=-1, length=N))
   
