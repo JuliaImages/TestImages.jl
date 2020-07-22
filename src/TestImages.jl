@@ -1,7 +1,8 @@
 module TestImages
 using FileIO, AxisArrays
+using ColorTypes
 
-export testimage
+export testimage, shepp_logan
 
 const imagedir = joinpath(dirname(@__FILE__), "..", "images")
 
@@ -94,5 +95,66 @@ function testimage(filename, ops...)
     end
     img
 end
+
+
+"""
+    phantom = shepp_logan(N, [M=N]; high_contrast=true)
+
+Output the NxM Shepp-Logan phantom, which is a standard test image usually used
+for comparing image reconstruction algorithms in the field of computed
+tomography (CT) and magnetic resonance imaging (MRI).
+
+If the argument `M` is omitted, the phantom is of size `NxN`. When setting the keyword argument
+`high_constrast` to false, the CT version [1] of the phantom is created. Otherwise, the high contrast
+MRI version [2] is calculated.
+
+# References
+
+[1] Shepp, Lawrence A., and Benjamin F. Logan. "The Fourier reconstruction of a head section." _IEEE Transactions on nuclear science_ 21.3 (1974): 21-43.
+[2] Toft, Peter Aundal. "The Radon transform-theory and implementation." (1996): 201.
+[3] Jain, Anil K. Fundamentals of digital image processing. _Prentice-Hall, Inc._, (1989): 439.
+"""
+function shepp_logan(N::Integer, M::Integer; high_contrast=true)
+    x = Array(range(-1, stop=1, length=M)')
+    y = Array(range(1, stop=-1, length=N))
+  
+    # follow the notation in [2]
+    A = high_contrast ?
+          # high contrast (MRI) version of the phantom -- [2] p.201
+          (1.0 , -0.8   , -0.2  , -0.2  , 0.1 , 0.1  ,  0.1  ,  0.1  ,  0.1  ,  0.1  ) :
+          # original (CT) version of the phantom -- [1]
+          (2.0 , -0.98  , -0.02 , -0.02 , 0.01, 0.01 ,  0.01 ,  0.01 ,  0.01 ,  0.01 )
+          # [3] p.439 uses the following setting for the CT version
+          # and is used by MATLAB's built-in `phantom` with method `Shepp-Logan`
+        # (1.0 , -0.98  , -0.02 , -0.02 , 0.01, 0.01 ,  0.01 ,  0.01 ,  0.01 ,  0.01 )
+    x₀ =  (0.0 ,  0.0   ,  0.22 , -0.22 , 0.0 , 0.0  ,  0.0  , -0.08 ,  0.0  ,  0.06 )
+    y₀ =  (0.0 , -0.0184,  0.0  ,  0.0  , 0.35, 0.1  , -0.1  , -0.605, -0.605, -0.605)
+    a  =  (0.69,  0.6624,  0.11 ,  0.16 , 0.21, 0.046,  0.046,  0.046,  0.023,  0.023)
+    b  =  (0.92,  0.874 ,  0.31 ,  0.41 , 0.25, 0.046,  0.046,  0.023,  0.023,  0.046)
+    ϕ  =  (0.0 ,  0.0   , -18.0 ,  18.0 , 0.0 , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
+
+    function _ellipse(dx, dy, a, b, sin_ϕ, cos_ϕ)
+        tx = cos_ϕ * dx + sin_ϕ * dy
+        ty = sin_ϕ * dx - cos_ϕ * dy
+        abs2(tx * b) + abs2(ty * a) < (a * b)^2
+    end
+    function _ellipse(dx, dy, a, b)
+        # a faster case when ϕ == 0.0
+        abs2(dx * b) + abs2(dy * a) < (a * b)^2
+    end
+  
+    P = zeros(Gray{Float64}, N, M)
+    for l = 1:length(ϕ)
+        if ϕ[l] == 0.0
+            @. P = gray(P) + A[l] * _ellipse(x - x₀[l], y - y₀[l], a[l], b[l])
+        else
+            sin_ϕ, cos_ϕ = sind(ϕ[l]), cosd(ϕ[l])
+            @. P = gray(P) + A[l] * _ellipse(x - x₀[l], y - y₀[l], a[l], b[l], sin_ϕ, cos_ϕ)
+        end
+    end
+  
+    return P
+end
+shepp_logan(N::Integer; kwargs...) = shepp_logan(N, N; kwargs...)
 
 end # module
