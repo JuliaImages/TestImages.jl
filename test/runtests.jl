@@ -2,6 +2,8 @@ using TestImages, FixedPointNumbers, Colors, AxisArrays
 using Test, ReferenceTests, Suppressor
 using ImageContrastAdjustment
 
+using TestImages: shepp_logan # will be exported in future release
+
 # make sure all files in remotefiles are valid image files
 foreach(TestImages.remotefiles) do img_name
     img = testimage(img_name)
