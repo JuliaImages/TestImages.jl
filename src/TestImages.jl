@@ -121,7 +121,7 @@ MRI version [2] is calculated.
 [3] Jain, Anil K. Fundamentals of digital image processing. _Prentice-Hall, Inc._, (1989): 439.
 """
 function shepp_logan(N::Integer, M::Integer; high_contrast=true, highContrast=nothing)
-    if !isnothing(highContrast)
+    if highContrast !== nothing
         # compatbitity to Images.shepp_logan
         # remove this when we remove Images.shepp_logan
         Base.depwarn("keyword `highContrast` is deprecated, use `high_contrast` instead.", :shepp_logan)
