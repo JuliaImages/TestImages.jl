@@ -2,6 +2,8 @@ using TestImages, FixedPointNumbers, Colors, AxisArrays
 using Test, ReferenceTests
 using ImageContrastAdjustment
 
+using TestImages: shepp_logan # will be exported in future release
+
 img = testimage("cameraman")
 @test isa(img, Matrix{Gray{N0f8}})
 img = testimage("mri-stack")
