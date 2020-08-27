@@ -74,7 +74,7 @@ https://testimages.juliaimages.org/
 
 $(reduce((x, y)->join([x, "\n - \`\"", splitext(y)[1], "\"\`"]), sort(remotefiles); init=""))
 """
-function testimage(filename; download_only = false, ops...)
+function testimage(filename; download_only::Bool = false, ops...)
     imagefile = image_path(full_imagename(filename))
 
     download_only && return imagefile
@@ -195,5 +195,12 @@ end
 shepp_logan(N::Integer, M::Integer; kwargs...) = shepp_logan(Int(N), Int(M); kwargs...)
 shepp_logan(N::Integer; kwargs...) = shepp_logan(Int(N), Int(N); kwargs...)
 
+function _precompile_()
+    ccall(:jl_generating_output, Cint, ()) == 1 || return nothing
+    @assert precompile(image_path, (String,))
+    @assert precompile(testimage, (String,))
+    @assert precompile(shepp_logan, (Int,Int))
+end
+VERSION >= v"1.4.2" && _precompile_() # https://github.com/JuliaLang/julia/pull/35378
 
 end # module
