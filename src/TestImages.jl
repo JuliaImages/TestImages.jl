@@ -146,7 +146,7 @@ MRI version [2] is calculated.
 
 [3] Jain, Anil K. Fundamentals of digital image processing. _Prentice-Hall, Inc._, (1989): 439.
 """
-function shepp_logan(N::Integer, M::Integer; high_contrast=true, highContrast=nothing)
+function shepp_logan(N::Int, M::Int; high_contrast::Bool=true, highContrast=nothing)
     if !isnothing(highContrast)
         # compatbitity to Images.shepp_logan
         # remove this when we remove Images.shepp_logan
@@ -154,7 +154,7 @@ function shepp_logan(N::Integer, M::Integer; high_contrast=true, highContrast=no
     end
     x = Array(range(-1, stop=1, length=M)')
     y = Array(range(1, stop=-1, length=N))
-  
+
     # follow the notation in [2]
     A = high_contrast ?
           # high contrast (MRI) version of the phantom -- [2] p.201
@@ -179,7 +179,7 @@ function shepp_logan(N::Integer, M::Integer; high_contrast=true, highContrast=no
         # a faster case when ϕ == 0.0
         abs2(dx * b) + abs2(dy * a) < (a * b)^2
     end
-  
+
     P = zeros(Gray{Float64}, N, M)
     for l = 1:length(ϕ)
         if ϕ[l] == 0.0
@@ -189,9 +189,11 @@ function shepp_logan(N::Integer, M::Integer; high_contrast=true, highContrast=no
             @. P = gray(P) + A[l] * _ellipse(x - x₀[l], y - y₀[l], a[l], b[l], sin_ϕ, cos_ϕ)
         end
     end
-  
+
     return P
 end
-shepp_logan(N::Integer; kwargs...) = shepp_logan(N, N; kwargs...)
+shepp_logan(N::Integer, M::Integer; kwargs...) = shepp_logan(Int(N), Int(M); kwargs...)
+shepp_logan(N::Integer; kwargs...) = shepp_logan(Int(N), Int(N); kwargs...)
+
 
 end # module
