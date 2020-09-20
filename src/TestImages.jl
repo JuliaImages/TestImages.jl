@@ -77,6 +77,10 @@ $(reduce((x, y)->join([x, "\n - \`\"", splitext(y)[1], "\"\`"]), sort(remotefile
 function testimage(filename; download_only::Bool = false, ops...)
     imagefile = image_path(full_imagename(filename))
 
+    if startswith(basename(imagefile), "lena_")
+        @warn "For copyright issue, it is not recommended to use \"lena\" image. Please use other images instead." maxlog=1
+    end
+
     download_only && return imagefile
 
     img = load(imagefile; ops...)
