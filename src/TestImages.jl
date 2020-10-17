@@ -43,6 +43,8 @@ remotefiles = [
     "peppers_color.tif" ,
     "peppers_gray.tif" ,
     "pirate.tif" ,
+    "resolution_test_512.tif" ,
+    "resolution_test_1920.tif" ,
     "toucan.png" ,
     "walkbridge.tif" ,
     "woman_blonde.tif" ,
