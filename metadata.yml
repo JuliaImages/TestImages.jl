@@ -30,5 +30,13 @@ peppers_color:
     url: http://sipi.usc.edu/database/database.php?volume=misc&image=13#top
 pirate:
     url: http://sipi.usc.edu/database/database.php?volume=misc&image=23#top
+resolution_test_1920:
+    name: Resolution test chart (1920 pixel)
+    url: https://www.osapublishing.org/oe/abstract.cfm?uri=oe-21-2-2032
+    author: Kai Wicker
+resolution_test_512:
+    name: Resolution test chart (512 pixel)
+    url: https://www.osapublishing.org/oe/abstract.cfm?uri=oe-21-2-2032
+    author: Kai Wicker
 walkbridge:
     url: http://sipi.usc.edu/database/database.php?volume=misc&image=22#top
