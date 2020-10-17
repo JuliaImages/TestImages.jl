@@ -81,7 +81,7 @@
 						Now submit a pull request to the <code>gh-pages</code> branch. Once accepted, the image or imageset will be stored at <code> https://github.com/JuliaImages/TestImages.jl/blob/gh-pages/images/&#60;filename&#62;</code>.
 					</li>
 				</ul>
-				<p>Now that the images are added to the repository, maintainers will then create a tag <code>v*-artifacts</code> for <code>gh-pages</code> branch and release an tarball artifact for this commit. After that we need to modify the source files of the TestImages.jl package to make them available for download.</p>
+				<p>Now that the images are added to the repository, maintainers will then create a tag(not release) <code>v*-artifacts</code> for <code>gh-pages</code> branch and github action CI will build and release an tarball artifact for this commit. After that we need to modify the source files of the TestImages.jl package to make them available for download.</p>
 				<ul>
 					<li>
 						Do <code>git checkout master</code> to return to the master branch.
