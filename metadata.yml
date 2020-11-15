@@ -30,6 +30,9 @@ peppers_color:
     url: http://sipi.usc.edu/database/database.php?volume=misc&image=13#top
 pirate:
     url: http://sipi.usc.edu/database/database.php?volume=misc&image=23#top
+simple_3d_psf:
+    name: A simple 3D point spread function of a circular aperture (64pixel in each dimension)
+    author: Rainer Heintzmann
 resolution_test_1920:
     name: Resolution test chart (1920 pixel)
     url: https://www.osapublishing.org/oe/abstract.cfm?uri=oe-21-2-2032
@@ -38,5 +41,8 @@ resolution_test_512:
     name: Resolution test chart (512 pixel)
     url: https://www.osapublishing.org/oe/abstract.cfm?uri=oe-21-2-2032
     author: Kai Wicker
+simple_3d_ball:
+    name: A 3D test image of a ball with some extra structure (64pixel in each dimension)
+    author: Rainer Heintzmann
 walkbridge:
     url: http://sipi.usc.edu/database/database.php?volume=misc&image=22#top
