@@ -1,5 +1,5 @@
 module TestImages
-using FileIO, AxisArrays
+using FileIO, AxisArrays, OffsetArrays
 using Pkg.Artifacts
 using StringDistances
 using ColorTypes
@@ -90,6 +90,9 @@ function testimage(filename; download_only::Bool = false, ops...)
         # orientation is posterior-right-superior,
         # see http://www.grahamwideman.com/gw/brain/orientation/orientterms.htm
         return AxisArray(img, (:P, :R, :S), (1, 1, 5))
+    elseif basename(imagefile) == "simple_3d_psf"
+        # zero-shift is in the middle
+        return OffsetArray(img, whatever_the_offset_is)
     end
     img
 end
