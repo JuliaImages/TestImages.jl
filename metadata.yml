@@ -46,3 +46,11 @@ simple_3d_ball:
     author: Rainer Heintzmann
 walkbridge:
     url: http://sipi.usc.edu/database/database.php?volume=misc&image=22#top
+chelsea:
+    name: Chelsea
+    url: https://github.com/scikit-image/scikit-image/blob/d254263605c6c173c563258d51f44e65782d4365/skimage/data/chelsea.png
+    author: Stefan van der Walt
+coffee:
+    name: coffee
+    url: https://github.com/scikit-image/scikit-image/blob/d254263605c6c173c563258d51f44e65782d4365/skimage/data/coffee.png
+    author: Rachel Michetti
