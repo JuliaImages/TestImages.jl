@@ -1,6 +1,6 @@
 # TestImages
 
-[![][travis-img]][travis-url]
+[![][action-img]][action-url]
 [![][pkgeval-img]][pkgeval-url]
 [![][codecov-img]][codecov-url]
 
@@ -39,7 +39,7 @@ A detailed guide on contributing to TestImages.jl can be found in the documentat
 
 [pkgeval-img]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/T/TestImages.svg
 [pkgeval-url]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/report.html
-[travis-img]: https://travis-ci.org/JuliaImages/TestImages.jl.svg?branch=master
-[travis-url]: https://travis-ci.org/JuliaImages/TestImages.jl
+[action-img]: https://github.com/JuliaImages/TestImages.jl/workflows/Unit%20test/badge.svg
+[action-url]: https://github.com/JuliaImages/TestImages.jl/actions
 [codecov-img]: https://codecov.io/github/JuliaImages/TestImages.jl/coverage.svg?branch=master
 [codecov-url]: https://codecov.io/github/JuliaImages/TestImages.jl?branch=master
