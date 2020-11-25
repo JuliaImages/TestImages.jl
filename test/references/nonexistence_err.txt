@@ -1,4 +1,5 @@
 ArgumentError: "nonexistence.png" not found in `TestImages.remotefiles`. Do you mean one of the following?
+  * "coffee.png"
   * "lighthouse.png"
   * "mountainstream.png"
   * "toucan.png"
