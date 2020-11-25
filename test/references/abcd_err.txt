@@ -1,2 +1,4 @@
 ArgumentError: "abcd.png" not found in `TestImages.remotefiles`. Do you mean one of the following?
+  * "chelsea.png"
+  * "coffee.png"
   * "toucan.png"
