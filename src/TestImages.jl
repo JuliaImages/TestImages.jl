@@ -15,6 +15,8 @@ remotefiles = [
     "autumn_leaves.png" ,
     "blobs.gif" ,
     "cameraman.tif" ,
+    "chelsea.png" ,
+    "coffee.png" ,
     "earth_apollo17.jpg" ,
     "fabio_color_256.png" ,
     "fabio_color_512.png" ,
