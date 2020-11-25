@@ -1,5 +1,5 @@
 module TestImages
-using FileIO, AxisArrays
+using FileIO, AxisArrays, OffsetArrays
 using Pkg.Artifacts
 using StringDistances
 using ColorTypes
@@ -45,6 +45,8 @@ remotefiles = [
     "pirate.tif" ,
     "resolution_test_512.tif" ,
     "resolution_test_1920.tif" ,
+    "simple_3d_ball" ,
+    "simple_3d_psf" ,
     "toucan.png" ,
     "walkbridge.tif" ,
     "woman_blonde.tif" ,
@@ -90,6 +92,9 @@ function testimage(filename; download_only::Bool = false, ops...)
         # orientation is posterior-right-superior,
         # see http://www.grahamwideman.com/gw/brain/orientation/orientterms.htm
         return AxisArray(img, (:P, :R, :S), (1, 1, 5))
+    elseif basename(imagefile) == "simple_3d_psf"
+        # zero frequency is at (0, 0, 0)
+        return OffsetArray(img, (-33, -33, -33))
     end
     img
 end
