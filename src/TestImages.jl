@@ -113,7 +113,7 @@ function full_imagename(filename)
     if idx === nothing
         warn_msg = "\"$filename\" not found in `TestImages.remotefiles`."
 
-        best_match = _findmax(filename)
+        best_match = _findnearest(filename)
         if isnothing(best_match[2])
             similar_matches = remotefiles[_findall(filename)]
             if !isempty(similar_matches)
@@ -136,8 +136,8 @@ function image_path(imagename)
     return joinpath(image_dir, imagename)
 end
 
-_findall(name; min_score=0.6) = findall(name, remotefiles, Winkler(Jaro()), min_score=min_score)
-_findmax(name; min_score=0.8) = findmax(name, remotefiles, Winkler(Jaro()), min_score=min_score)
+_findall(name; min_score=0.6) = findall(name, remotefiles, JaroWinkler(), min_score=min_score)
+_findnearest(name; min_score=0.8) = findnearest(name, remotefiles, JaroWinkler(), min_score=min_score)
 
 
 """
