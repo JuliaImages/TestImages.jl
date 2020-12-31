@@ -3,6 +3,7 @@ using FileIO, AxisArrays, OffsetArrays
 using Pkg.Artifacts
 using StringDistances
 using ColorTypes
+using ColorTypes.FixedPointNumbers
 const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
 
 export testimage
@@ -11,7 +12,7 @@ export testimage
 # https://github.com/JuliaImages/Images.jl/pull/904
 # export shepp_logan
 
-remotefiles = [
+const remotefiles = [
     "autumn_leaves.png" ,
     "blobs.gif" ,
     "cameraman.tif" ,
@@ -93,10 +94,10 @@ function testimage(filename; download_only::Bool = false, ops...)
     if basename(imagefile) == "mri-stack.tif"
         # orientation is posterior-right-superior,
         # see http://www.grahamwideman.com/gw/brain/orientation/orientterms.htm
-        return AxisArray(img, (:P, :R, :S), (1, 1, 5))
+        return AxisArray(img::Array{Gray{N0f8},3}, (:P, :R, :S), (1, 1, 5))
     elseif basename(imagefile) == "simple_3d_psf"
         # zero frequency is at (0, 0, 0)
-        return OffsetArray(img, (-33, -33, -33))
+        return OffsetArray(img::Array{Gray{N0f8},3}, (-33, -33, -33))
     end
     img
 end
