@@ -1,4 +1,5 @@
-using TestImages, FixedPointNumbers, Colors, AxisArrays
+using TestImages, FixedPointNumbers, Colors
+using AxisArrays: AxisArray, axisvalues
 using Test, ReferenceTests, Suppressor
 using ImageContrastAdjustment
 
@@ -18,6 +19,11 @@ img = testimage("mri-stack")
 @test isa(img, AxisArray)
 @test map(step, axisvalues(img)) == (1,1,5)
 @test_nowarn testimage("c")
+# Test that the PSF image is centered
+img = testimage("simple_3d_psf")
+map(axes(img)) do ax
+    @test abs(first(ax) + last(ax)) <= 1
+end
 
 # mismatch handling
 # Note: the behavior might change as `remotefiles` changes
