@@ -23,6 +23,9 @@ lighthouse:
     url: http://r0k.us/graphics/kodak/kodak/kodim21.png
 mandril_color:
     url: http://sipi.usc.edu/database/database.php?volume=misc&image=10#top
+morphology_test_512:
+    url: https://gist.github.com/ashwani-rathee/a835ea20bb522d35e7441978686a1951
+    author: Ashwani Rathee
 mountainstream:
     url: http://r0k.us/graphics/kodak/kodak/kodim13.png
 peppers_color:
