@@ -9,6 +9,10 @@
 # author – original author (if known)
 #
 # none of these fields is required.
+airplaneF16:
+    name: Airplane (F-16)
+    url: http://sipi.usc.edu/database/download.php?vol=misc&img=4.2.05
+    author: USC-SIPI Image Database
 autumn_leaves:
     name: Autum Leaves
     url: http://www.imagemagick.org/Usage/images/autumn_leaves.png
