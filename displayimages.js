@@ -27,12 +27,13 @@ function getImageHTML(image,f){
 
 $('document').ready(function(){
 
-	var images = {"autumn_leaves" : {name:"Autum Leaves", url:"http://www.imagemagick.org/Usage/images/autumn_leaves.png", thumbnail:"autumn_leaves.png", file:"autumn_leaves.png", colorspace:"RGB", size : "(105, 140)", filetype : "PNG"},
-"blobs" : {thumbnail:"blobs.png", file:"blobs.gif", colorspace:"RGB", size : "(254, 256)", filetype : "GIF"},
+	var images = {"airplaneF16" : {name:"Airplane (F-16)", url:"http://sipi.usc.edu/database/download.php?vol=misc&img=4.2.05", author:"USC-SIPI Image Database", thumbnail:"airplaneF16.png", file:"airplaneF16.tiff", colorspace:"RGB", size : "(512, 512)", filetype : "TIFF"},
+"autumn_leaves" : {name:"Autum Leaves", url:"http://www.imagemagick.org/Usage/images/autumn_leaves.png", thumbnail:"autumn_leaves.png", file:"autumn_leaves.png", colorspace:"RGB", size : "(105, 140)", filetype : "PNG"},
+"blobs" : {thumbnail:"blobs.png", file:"blobs.gif", colorspace:"RGBX", size : "(254, 256)", filetype : "GIF"},
 "cameraman" : {thumbnail:"cameraman.png", file:"cameraman.tif", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
 "chelsea" : {name:"Chelsea", url:"https://github.com/scikit-image/scikit-image/blob/d254263605c6c173c563258d51f44e65782d4365/skimage/data/chelsea.png", author:"Stefan van der Walt", thumbnail:"chelsea.png", file:"chelsea.png", colorspace:"RGB", size : "(300, 451)", filetype : "PNG"},
 "coffee" : {name:"coffee", url:"https://github.com/scikit-image/scikit-image/blob/d254263605c6c173c563258d51f44e65782d4365/skimage/data/coffee.png", author:"Rachel Michetti", thumbnail:"coffee.png", file:"coffee.png", colorspace:"RGB", size : "(400, 600)", filetype : "PNG"},
-"earth_apollo17" : {url:"http://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg", thumbnail:"earth_apollo17.png", file:"earth_apollo17.jpg", colorspace:"RGB", size : "(3002, 3000)", filetype : "JPG"},
+"earth_apollo17" : {url:"http://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg", thumbnail:"earth_apollo17.png", file:"earth_apollo17.jpg", colorspace:"RGBX", size : "(3002, 3000)", filetype : "JPG"},
 "fabio_color_256" : {thumbnail:"fabio_color_256.png", file:"fabio_color_256.png", colorspace:"RGB", size : "(256, 256)", filetype : "PNG"},
 "fabio_color_512" : {thumbnail:"fabio_color_512.png", file:"fabio_color_512.png", colorspace:"RGB", size : "(512, 512)", filetype : "PNG"},
 "fabio_gray_256" : {thumbnail:"fabio_gray_256.png", file:"fabio_gray_256.png", colorspace:"Gray", size : "(256, 256)", filetype : "PNG"},
