@@ -29,7 +29,11 @@ img = testimage("cam") # with only partial name also works
 phantom = TestImages.shepp_logan(256) # generate the Shepp-Logan phantom image
 ```
 
-Images will be automatically downloaded into artifact folders (e.g., `images/` for julia `< v1.3`) when you load the image for the first time.
+Images will be automatically downloaded into artifact folders when you load the image for the first time.
+
+## Compatibility
+
+For users with Julia < v1.3.0, TestImages v0.6.z will still be under maintenance. However, newly added test images will not be available in those versions.
 
 ## Contributing
 
