@@ -54,7 +54,7 @@ err_str = @capture_err testimage("camereman")
     @test_reference "references/shepp_logan_CT_128.txt" adjust_histogram(phantom_ct, LinearStretching())
     @test_reference "references/shepp_logan_MRI_128.txt" phantom_mri
 
-    _norm(x) = sqrt(sum(abs2, x))
+    _norm(A) = sqrt(sum(c->mapreducec(abs2, +, 0, c), A))
     P = [ 0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0;
           0.0  0.0  1.0  0.2  0.2  1.0  0.0  0.0;
           0.0  0.0  0.2  0.3  0.3  0.2  0.0  0.0;
