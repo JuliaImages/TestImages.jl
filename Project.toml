@@ -9,7 +9,7 @@ FileIO = "5789e2e9-d7fb-5bc7-8068-2c6fae9b9549"
 
 [compat]
 AxisArrays = "0.3, 0.4"
-ColorTypes = "0.8, 0.9, 0.10"
+ColorTypes = "0.8, 0.9, 0.10, 0.11"
 FileIO = "1"
 julia = "1"
 
