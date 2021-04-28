@@ -1,9 +1,9 @@
 module TestImages
-using FileIO, AxisArrays, OffsetArrays
+using AxisArrays, OffsetArrays
 using Pkg.Artifacts
 using StringDistances
-using ColorTypes
-using ColorTypes.FixedPointNumbers
+using ImageMagick
+using ImageMagick.ImageCore
 const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
 
 export testimage
@@ -64,7 +64,7 @@ Load test image that partially matches `filename`, the first match is used if th
 than one.
 
 If `download_only=true`, the full filepath is returned.
-Any other keyword arguments `ops` will be passed to image IO backend through `FileIO.load`.
+Any other keyword arguments `ops` will be passed to image IO backend through `ImageMagick.load`.
 
 # Example
 
@@ -91,7 +91,7 @@ function testimage(filename; download_only::Bool = false, ops...)
 
     download_only && return imagefile
 
-    img = load(imagefile; ops...)
+    img = ImageMagick.load(imagefile; ops...)
     if basename(imagefile) == "mri-stack.tif"
         # orientation is posterior-right-superior,
         # see http://www.grahamwideman.com/gw/brain/orientation/orientterms.htm
