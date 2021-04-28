@@ -13,6 +13,7 @@ export testimage
 # export shepp_logan
 
 const remotefiles = [
+    "airplaneF16.tiff",
     "autumn_leaves.png" ,
     "blobs.gif" ,
     "cameraman.tif" ,
