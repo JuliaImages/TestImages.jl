@@ -59,6 +59,7 @@ $('document').ready(function(){
 "monarch_color" : {thumbnail:"monarch_color.png", file:"monarch_color.png", colorspace:"RGB", size : "(512, 768)", filetype : "PNG"},
 "monarch_color_256" : {thumbnail:"monarch_color_256.png", file:"monarch_color_256.png", colorspace:"RGB", size : "(256, 256)", filetype : "PNG"},
 "moonsurface" : {thumbnail:"moonsurface.png", file:"moonsurface.tiff", colorspace:"Gray", size : "(256, 256)", filetype : "TIFF"},
+"morphology_test_512" : {url:"https://gist.github.com/ashwani-rathee/a835ea20bb522d35e7441978686a1951", author:"Ashwani Rathee", thumbnail:"morphology_test_512.png", file:"morphology_test_512.tiff", colorspace:"RGB", size : "(512, 512)", filetype : "TIFF"},
 "mountainstream" : {url:"http://r0k.us/graphics/kodak/kodak/kodim13.png", thumbnail:"mountainstream.png", file:"mountainstream.png", colorspace:"RGB", size : "(512, 768)", filetype : "PNG"},
 "mri-stack" : {thumbnail:"cannot_be_displayed.png", file:"mri-stack.tif", colorspace:"Gray", size : "(226, 186, 27)", filetype : "TIF"},
 "multi-channel-time-series.ome" : {thumbnail:"cannot_be_displayed.png", file:"multi-channel-time-series.ome.tif", colorspace:"Gray", size : "(167, 439, 3, 7)", filetype : "TIF"},
