@@ -70,6 +70,7 @@ $('document').ready(function(){
 "resolution_test_512" : {name:"Resolution test chart (512 pixel)", url:"https://www.osapublishing.org/oe/abstract.cfm?uri=oe-21-2-2032", author:"Kai Wicker", thumbnail:"resolution_test_512.png", file:"resolution_test_512.tif", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
 "simple_3d_ball" : {name:"A 3D test image of a ball with some extra structure (64pixel in each dimension)", author:"Rainer Heintzmann", thumbnail:"cannot_be_displayed.png", file:"simple_3d_ball.tif", colorspace:"Gray", size : "(64, 64, 64)", filetype : "TIF"},
 "simple_3d_psf" : {name:"A simple 3D point spread function of a circular aperture (64pixel in each dimension)", author:"Rainer Heintzmann", thumbnail:"cannot_be_displayed.png", file:"simple_3d_psf.tif", colorspace:"Gray", size : "(64, 64, 64)", filetype : "TIF"},
+"sudoku" : {thumbnail:"sudoku.png", file:"sudoku.tiff", colorspace:"RGB", size : "(2992, 2992)", filetype : "TIFF"},
 "toucan" : {thumbnail:"toucan.png", file:"toucan.png", colorspace:"RGB", size : "(150, 162)", filetype : "PNG"},
 "walkbridge" : {url:"http://sipi.usc.edu/database/database.php?volume=misc&image=22#top", thumbnail:"walkbridge.png", file:"walkbridge.tif", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
 "woman_blonde" : {thumbnail:"woman_blonde.png", file:"woman_blonde.tif", colorspace:"Gray", size : "(512, 512)", filetype : "TIF"},
