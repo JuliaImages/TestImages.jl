@@ -52,7 +52,7 @@ simple_3d_ball:
     name: A 3D test image of a ball with some extra structure (64pixel in each dimension)
     author: Rainer Heintzmann
 sudoku_512:
-    name: Sudoku 512*512
+    name: Sudoku image
     author: Ashwani Rathee
 walkbridge:
     url: http://sipi.usc.edu/database/database.php?volume=misc&image=22#top
