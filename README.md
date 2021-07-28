@@ -19,11 +19,11 @@ Full documentation and description of the images available in TestImages.jl can 
 
 ## Usage
 
-```
+```julia
 using TestImages
 
 img = testimage("cameraman.tif") # fullname
-img = testimage("cameraman) # without extension works
+img = testimage("cameraman") # without extension works
 img = testimage("cam") # with only partial name also works
 
 phantom = TestImages.shepp_logan(256) # generate the Shepp-Logan phantom image
