@@ -1,3 +1,4 @@
 images/
 deps/*.log
 Manifest.toml
+docs/build
