@@ -9,13 +9,14 @@ function generate_imagelist()
     paths = ones(String,N)
 
     # Save original images
-    mkdir("docs/src/images")
+    mkpath("docs/src/images")
     for i in 1:N
         filename = filenames[i]
         cp(TestImages.image_path(filename), "docs/src/images/$(filename)", force=true)
     end
 
     # Generate and save thumbnails
+    mkpath("docs/src/thumbnails")
     HEIGHT = 200
     for i in 1:N
 
