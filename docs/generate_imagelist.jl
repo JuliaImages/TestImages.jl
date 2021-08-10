@@ -8,14 +8,14 @@ function generate_imagelist()
     sizes = size.(imgs)
     paths = ones(String,N)
 
-    # Save original images
+    # Save original images to `images` directory
     mkpath("docs/src/images")
     for i in 1:N
         filename = filenames[i]
         cp(TestImages.image_path(filename), "docs/src/images/$(filename)", force=true)
     end
 
-    # Generate and save thumbnails
+    # Generate and save thumbnails to `thumbnails` directory
     mkpath("docs/src/thumbnails")
     HEIGHT = 200
     for i in 1:N
@@ -58,7 +58,7 @@ function generate_imagelist()
         end
     end
 
-    # Generate markdown, a list of image
+    # Generate markdown, including a table of images
     script = """
     # List of test images
 
@@ -73,7 +73,7 @@ function generate_imagelist()
     for i in 1:N
         filename = filenames[i]
         path_orginal = joinpath("images",filename)
-        path_thumbnail = paths[i][10:end] # removing "docs/src/"
+        path_thumbnail = paths[i][10:end] # removing "docs/src/" from the path
         color = colors[i]
         size = sizes[i]
         # TODO: fill the `note` section referring to metadata.yml
