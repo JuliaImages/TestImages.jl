@@ -10,6 +10,7 @@ makedocs(;
     pages=[
         "Home" => "index.md",
         "List of images" => "imagelist.md",
+        "Function reference" => "functionreference.md",
         "Contributing" => "contributing.md",
     ],
     repo="https://github.com/JuliaImages/TestImages.jl/blob/{commit}{path}#L{line}",
