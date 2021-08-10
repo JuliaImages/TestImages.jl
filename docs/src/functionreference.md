@@ -1,19 +1,15 @@
 # Function reference
 
-## Index
-```@index
+## Image loaders
+
+```@docs
+testimage
+TestImages.shepp_logan
 ```
 
-## Public methods
-```@autodocs
-Modules = [TestImages]
-Private = false
-Public = true
-```
 
-## Private methods
-```@autodocs
-Modules = [TestImages]
-Private = true
-Public = false
+## Helpers
+
+```@docs
+TestImages.full_imagename
 ```
