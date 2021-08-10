@@ -62,17 +62,18 @@ function generate_imagelist()
     script = """
     # List of test images
 
-    | Image | Name | Color | Size | Description |
+    | Image | Name | Color | Size | Note |
     | :---- | :--- | :---- | :--- | :---------- |
     """
 
     for i in 1:N
-        path = paths[i][10:end]
+        path_thumbnail = paths[i][10:end] # removing "docs/src/"
         filename = filenames[i]
+        path_orginal = joinpath("images",filename)
         color = colors[i]
         size = sizes[i]
-        # TODO: fill the description referring to metadata.yml
-        script *= "| ![]($(path)) | [`$(filename)`]($(path)) | `$(color)` | `$(size)` |  |\n"
+        # TODO: fill the `note` section referring to metadata.yml
+        script *= "| ![]($(path_thumbnail)) | [`$(filename)`]($(path_orginal)) | `$(color)` | `$(size)` |  |\n"
     end
 
     write("docs/src/imagelist.md", script)
