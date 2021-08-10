@@ -6,31 +6,29 @@ This can be used in conjunction with the
 [Images](https://github.com/JuliaImages/Images.jl) package.
 
 ## Installation
+Just like all normal Julia packages, you can use Pkg to install it:
+
+```julia
+pkg> add TestImages # hit ] to enter Pkg mode
 ```
-pkg> add TestImages
-```
 
-### Linux and OSX
-If you find yourself missing most of the images described below, please try `Pkg.build("TestImages")`, which should trigger another attempt to download the standard images.
-
-In case you would like to download other images from the repository not in the standard set, you can call the `testimage` with the image name and it will be downloaded from the repository.
-
-### Windows
-The `download` command, used to download images from the archives, is not fully supported.
-You can manually download the files listed in `deps\build.jl` from the `images` folder of the `master` branch of this repository and place them in `TestImages\images`.
+`TestImages` doesn't support image IO by itself, which means you need to install some backends on your choice, e.g., [ImageMagick.jl](https://github.com/JuliaIO/ImageMagick.jl), [QuartzImageIO](https://github.com/JuliaIO/QuartzImageIO.jl), [OMETIFF.jl](https://github.com/tlnagy/OMETIFF.jl).
 
 ## Usage
+
+This package currently contains two main functions:
+
+- `testimage` that loads existing image files. Check the [list of test images](@ref imagelist) for what's available.
+- `shepp_logan` that generates a phantom image, which is used very widely in image reconstruction experiments.
+
 ```@example usage
-using Images # hide
 using TestImages
-img = testimage("cameraman")
-save("images/cameraman.png", img); nothing # hide
+
+img = testimage("cameraman.tif") # fullname
+img = testimage("cameraman") # without extension works
+img = testimage("cam") # with only partial name also works
 ```
 
-![](images/cameraman.png)
-
-The standard test images are downloaded to an `images/` directory inside this package.
-Any image file stored in this directory is accessible through the `testimage` function.
-You can supply the file extension (e.g., `.png`, `.tif`, etc), but it is not required.
-
-In case the image is not present locally, the `testimage` function will check the online repository and download it for you.
+```@example usage
+TestImages.shepp_logan(256) # generate the Shepp-Logan phantom image
+```

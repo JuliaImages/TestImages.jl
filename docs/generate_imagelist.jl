@@ -61,7 +61,7 @@ function generate_imagelist(root)
 
     # Generate markdown, including a table of images
     script = """
-    # List of test images
+    # [List of test images](@id imagelist)
 
     !!! info "Metadata of the images"
         Currently, the table below does not contain `Note` section.

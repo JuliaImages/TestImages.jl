@@ -14,8 +14,10 @@ The following steps should be followed to add an image/imageset to the repositor
 1. `git push <fork> images`
 1. Now submit a pull request to the `images` branch. Once accepted, the image or imageset will be stored at `https://github.com/JuliaImages/TestImages.jl/blob/images/images/<filename>`.
 
-Now that the images are added to the repository, maintainers will then create a tag(not release) v*-artifacts for `images` branch and push it to the repo.
-After that, github action CI defined in `images` branch will be triggered, build and release an tarball artifact for this commit.
+Now that the images are added to the repository, maintainers will then create a tag(not release)
+v*-artifacts (e.g., `v1.5.0-artifacts`) for `images` branch and push it to the repo. After that,
+github action CI defined in `images` branch will be triggered, build and release an tarball artifact
+for this commit.
 
 ### Step 2: update `master` branch
 The next step is to modify the source files of the `TestImages.jl` package to make them available for download, i.e., add it to `remotefiles` list.
@@ -27,6 +29,8 @@ The next step is to modify the source files of the `TestImages.jl` package to ma
 1. `git commit -m "Adds <filename> to package"`
 1. `git push <fork> master`
 1. Now submit a pull request to the `master` branch. Once accepted, the image or imageset will be available for download to users of `TestImages.jl`.
+
+See [PR#123](https://github.com/JuliaImages/TestImages.jl/pull/123) for an example.
 
 ## Others
 Feel free to open [issues](https://github.com/JuliaImages/TestImages.jl/issues) or [pull-requests](https://github.com/JuliaImages/TestImages.jl/pulls).
