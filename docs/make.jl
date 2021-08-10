@@ -4,9 +4,12 @@ include("generate_imagelist.jl")
 
 generate_imagelist(joinpath(@__DIR__, "src"))
 
+format = Documenter.HTML(edit_link = "master",
+                         prettyurls = get(ENV, "CI", nothing) == "true")
+
 makedocs(;
     modules=[TestImages],
-    format=Documenter.HTML(),
+    format=format,
     pages=[
         "Home" => "index.md",
         "List of images" => "imagelist.md",
