@@ -1,4 +1,5 @@
 function generate_imagelist(root)
+    filenames = sort(TestImages.remotefiles, by=x->lowercase(splitext(x)[1]))
 
     N = length(filenames)
     names = [splitext(filename)[1] for filename in filenames]
