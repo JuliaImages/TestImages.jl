@@ -1,6 +1,3 @@
-```@meta
-CurrentModule = TestImages
-```
 # Function reference
 
 ## Index
