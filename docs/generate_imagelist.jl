@@ -38,7 +38,8 @@ function generate_imagelist(root)
             end
             path = joinpath(root, "thumbnails", names[i]*".gif")
             paths[i] = path
-            save(path, thumbnail)
+            fps = ceil(Int, size(thumbnail, 3)/3) # we want the image loop within 3 seconds
+            save(path, thumbnail; fps=fps)
 
         elseif length(sizes[i]) == 4
             # multi-channel image, will be converted animated gif
