@@ -1,5 +1,4 @@
-function generate_imagelist()
-    filenames = TestImages.remotefiles
+function generate_imagelist(root)
 
     N = length(filenames)
     names = [splitext(filename)[1] for filename in filenames]
@@ -8,15 +7,15 @@ function generate_imagelist()
     sizes = size.(imgs)
     paths = ones(String,N)
 
-    # Save original images to `images` directory
-    mkpath("docs/src/images")
+    # Save original images
+    mkpath(joinpath(root, "images"))
     for i in 1:N
         filename = filenames[i]
-        cp(TestImages.image_path(filename), "docs/src/images/$(filename)", force=true)
+        cp(TestImages.image_path(filename), joinpath(root, "images", filename), force=true)
     end
 
-    # Generate and save thumbnails to `thumbnails` directory
-    mkpath("docs/src/thumbnails")
+    # Generate and save thumbnails
+    mkpath(joinpath(root, "thumbnails"))
     HEIGHT = 200
     for i in 1:N
 
@@ -24,7 +23,7 @@ function generate_imagelist()
             # Normal image
             width = round(Int, HEIGHT / /(sizes[i]...))
             thumbnail = imresize(imgs[i], HEIGHT, width)
-            path = "docs/src/thumbnails/$(names[i]).png"
+            path = joinpath(root, "thumbnails", names[i]*".png")
             paths[i] = path
             save(path, thumbnail)
 
@@ -37,7 +36,7 @@ function generate_imagelist()
             for j in 1:sizes[i][3]
                 thumbnail[:,:,j] = imresize(img[:,:,j], HEIGHT, width)
             end
-            path = "docs/src/thumbnails/$(names[i]).gif"
+            path = joinpath(root, "thumbnails", names[i]*".gif")
             paths[i] = path
             save(path, thumbnail)
 
@@ -51,7 +50,7 @@ function generate_imagelist()
             for j in 1:n_frames
                 thumbnail[:,:,j] = imresize(img[:,:,j], HEIGHT, width)
             end
-            path = "docs/src/thumbnails/$(names[i]).gif"
+            path = joinpath(root, "thumbnails", names[i]*".gif")
             paths[i] = path
             save(path, thumbnail)
 
@@ -72,14 +71,14 @@ function generate_imagelist()
 
     for i in 1:N
         filename = filenames[i]
-        path_orginal = joinpath("images",filename)
-        path_thumbnail = paths[i][10:end] # removing "docs/src/" from the path
+        path_orginal = joinpath("images", filename)
+        path_thumbnail = joinpath("thumbnails", basename(paths[i]))
         color = colors[i]
         size = sizes[i]
         # TODO: fill the `note` section referring to metadata.yml
         script *= "| ![]($(path_thumbnail)) | [`$(filename)`]($(path_orginal)) | `$(color)` | `$(size)` |  |\n"
     end
 
-    write("docs/src/imagelist.md", script)
+    write(joinpath(root, "imagelist.md"), script)
 end
  

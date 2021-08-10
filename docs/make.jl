@@ -2,7 +2,7 @@ using Documenter, TestImages, Images, OMETIFF
 
 include("generate_imagelist.jl")
 
-generate_imagelist()
+generate_imagelist(joinpath(@__DIR__, "src"))
 
 makedocs(;
     modules=[TestImages],
