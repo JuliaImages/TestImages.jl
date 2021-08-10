@@ -62,14 +62,18 @@ function generate_imagelist()
     script = """
     # List of test images
 
+    !!! info "Metadata of the images"
+        Currently, the table below does not contain `Note` section.
+        For more infomation about their metadata, see [metadata.yml](https://github.com/JuliaImages/TestImages.jl/blob/images/metadata.yml)
+ 
     | Image | Name | Color | Size | Note |
     | :---- | :--- | :---- | :--- | :---------- |
     """
 
     for i in 1:N
-        path_thumbnail = paths[i][10:end] # removing "docs/src/"
         filename = filenames[i]
         path_orginal = joinpath("images",filename)
+        path_thumbnail = paths[i][10:end] # removing "docs/src/"
         color = colors[i]
         size = sizes[i]
         # TODO: fill the `note` section referring to metadata.yml
