@@ -3,6 +3,8 @@
 [![][action-img]][action-url]
 [![][pkgeval-img]][pkgeval-url]
 [![][codecov-img]][codecov-url]
+[![Stable][docstable-img]][docstable-url]
+[![Dev][docdev-img]][docdev-url]
 
 This package provides a convenient Julia interface for loading
 [standard named test images](https://en.wikipedia.org/wiki/Standard_test_image) and example images for the internal usage in JuliaImages.
@@ -11,7 +13,7 @@ This can be used in conjunction with the
 
 ## Documentation
 
-Full documentation and description of the images available in TestImages.jl can be found [here](https://testimages.juliaimages.org/).
+Full documentation and description of the images available in TestImages.jl can be found [here][doc-url].
 
 ## Installation
 
@@ -47,3 +49,8 @@ A detailed guide on contributing to TestImages.jl can be found in the documentat
 [action-url]: https://github.com/JuliaImages/TestImages.jl/actions
 [codecov-img]: https://codecov.io/github/JuliaImages/TestImages.jl/coverage.svg?branch=master
 [codecov-url]: https://codecov.io/github/JuliaImages/TestImages.jl?branch=master
+[docstable-img]: https://img.shields.io/badge/docs-stable-blue.svg
+[docstable-url]: https://testimages.juliaimages.org/stable/
+[docdev-img]: https://img.shields.io/badge/docs-dev-blue.svg
+[docdev-url]: https://testimages.juliaimages.org/dev/
+[doc-url]: https://testimages.juliaimages.org
