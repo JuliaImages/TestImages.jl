@@ -13,94 +13,94 @@
 # none of these fields is required.
 
 [[images]]
-filename = "airplaneF16"
+name = "airplaneF16"
 fullname = "Airplane (F-16)"
 url = "http://sipi.usc.edu/database/download.php?vol=misc&img=4.2.05"
 author = "USC-SIPI Image Database"
 
 [[images]]
-filename = "autumn_leaves"
+name = "autumn_leaves"
 fullname = "Autum Leaves"
 url = "http://www.imagemagick.org/Usage/images/autumn_leaves.png"
 
 [[images]]
-filename = "chelsea"
+name = "chelsea"
 fullname = "Chelsea"
 url = "https://github.com/scikit-image/scikit-image/blob/d254263605c6c173c563258d51f44e65782d4365/skimage/data/chelsea.png"
 author = "Stefan van der Walt"
 
 [[images]]
-filename = "coffee"
+name = "coffee"
 fullname = "coffee"
 url = "https://github.com/scikit-image/scikit-image/blob/d254263605c6c173c563258d51f44e65782d4365/skimage/data/coffee.png"
 author = "Rachel Michetti"
 
 [[images]]
-filename = "earth_apollo17"
+name = "earth_apollo17"
 url = "http://upload.wikimedia.org/wikipedia/commons/9/97/The_Earth_seen_from_Apollo_17.jpg"
 
 [[images]]
-filename = "lake_color"
+name = "lake_color"
 fullname = "Sailboat on lake"
 url = "http://sipi.usc.edu/database/database.php?volume=misc&image=12#top"
 
 [[images]]
-filename = "lena_gray_512"
+name = "lena_gray_512"
 url = "http://www.ece.rice.edu/~wakin/images/lenaTest3.jpg"
 
 [[images]]
-filename = "lighthouse"
+name = "lighthouse"
 url = "http://r0k.us/graphics/kodak/kodak/kodim21.png"
 
 [[images]]
-filename = "mandril_color"
+name = "mandril_color"
 url = "http://sipi.usc.edu/database/database.php?volume=misc&image=10#top"
 
 [[images]]
-filename = "morphology_test_512"
+name = "morphology_test_512"
 url = "https://gist.github.com/ashwani-rathee/a835ea20bb522d35e7441978686a1951"
 author = "Ashwani Rathee"
 
 [[images]]
-filename = "mountainstream"
+name = "mountainstream"
 url = "http://r0k.us/graphics/kodak/kodak/kodim13.png"
 
 [[images]]
-filename = "peppers_color"
+name = "peppers_color"
 fullname = "Peppers (color)"
 url = "http://sipi.usc.edu/database/database.php?volume=misc&image=13#top"
 
 [[images]]
-filename = "pirate"
+name = "pirate"
 url = "http://sipi.usc.edu/database/database.php?volume=misc&image=23#top"
 
 [[images]]
-filename = "simple_3d_psf"
+name = "simple_3d_psf"
 fullname = "A simple 3D point spread function of a circular aperture (64pixel in each dimension)"
 author = "Rainer Heintzmann"
 
 [[images]]
-filename = "resolution_test_1920"
+name = "resolution_test_1920"
 fullname = "Resolution test chart (1920 pixel)"
 url = "https://www.osapublishing.org/oe/abstract.cfm?uri=oe-21-2-2032"
 author = "Kai Wicker"
 
 [[images]]
-filename = "resolution_test_512"
+name = "resolution_test_512"
 fullname = "Resolution test chart (512 pixel)"
 url = "https://www.osapublishing.org/oe/abstract.cfm?uri=oe-21-2-2032"
 author = "Kai Wicker"
 
 [[images]]
-filename = "simple_3d_ball"
+name = "simple_3d_ball"
 fullname = "A 3D test image of a ball with some extra structure (64pixel in each dimension)"
 author = "Rainer Heintzmann"
 
 [[images]]
-filename = "sudoku"
+name = "sudoku"
 fullname = "Sudoku image"
 author = "Ashwani Rathee"
 
 [[images]]
-filename = "walkbridge"
+name = "walkbridge"
 url = "http://sipi.usc.edu/database/database.php?volume=misc&image=22#top"
