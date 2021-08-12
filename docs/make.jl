@@ -1,4 +1,4 @@
-using Documenter, TestImages, Images, OMETIFF
+using Documenter, TestImages, Images, OMETIFF, TOML
 
 include("generate_imagelist.jl")
 

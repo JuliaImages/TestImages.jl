@@ -52,28 +52,58 @@ function generate_imagelist(root)
         end
     end
 
+    # Refer to the metadata
+    path_toml = TestImages.image_path("metadata.toml")
+    metadata = Dict{String,String}.(TOML.parsefile(path_toml)["images"])
+
+    fullnames = ones(String, N)
+    notes = [String[] for i in 1:N]
+
+    for i in 1:N
+        name = splitext(filenames[i])[1]
+        j = findfirst(data -> data["name"]==name, metadata)
+        if !isnothing(j)
+            data = metadata[j]
+            if "fullname" in keys(data)
+                fullnames[i] = data["fullname"]
+            end
+            if "url" in keys(data)
+                url = data["url"]
+                push!(notes[i], "[origin]($(url))")
+            end
+            if "author" in keys(data)
+                author = data["author"]
+                push!(notes[i], "by $(author)")
+            end
+            if "lisence" in keys(data)
+                lisence = data["lisence"]
+                push!(notes[i], "$(lisence)")
+            end
+        end
+    end
+
     # Generate markdown, including a table of images
     script = """
     # [List of test images](@id imagelist)
 
-    !!! info "Metadata of the images"
-        Currently, the table below does not contain `Note` section.
-        For more infomation about their metadata, see [metadata.yml](https://github.com/JuliaImages/TestImages.jl/blob/images/metadata.yml)
- 
     | Image | Name | Color | Size | Note |
-    | :---- | :--- | :---- | :--- | :---------- |
+    | :---- | :--- | :---- | :--- | :--- |
     """
 
     for i in 1:N
         filename = filenames[i]
+        fullname = fullnames[i]
         path_original = "https://raw.githubusercontent.com/JuliaImages/TestImages.jl/images/images/" * filename
         path_thumbnail = joinpath("thumbnails", basename(paths[i]))
         color = colors[i]
         size = sizes[i]
-        # TODO: fill the `note` section referring to metadata.yml
-        script *= "| ![]($(path_thumbnail)) | [`$(filename)`]($(path_original)) | `$(color)` | `$(size)` |  |\n"
+        note = join(notes[i], ", ")
+        name = "[`$(filename)`]($(path_original))"
+        if fullname != ""
+            name = "**$(fullname)**, " * name
+        end
+        script *= "| ![]($(path_thumbnail)) | $(name) | `$(color)` | `$(size)` | $(note) |\n"
     end
 
     write(joinpath(root, "imagelist.md"), script)
 end
- 
