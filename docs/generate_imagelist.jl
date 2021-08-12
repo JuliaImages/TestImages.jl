@@ -8,13 +8,6 @@ function generate_imagelist(root)
     sizes = size.(imgs)
     paths = ones(String,N)
 
-    # Save original images
-    mkpath(joinpath(root, "images"))
-    for i in 1:N
-        filename = filenames[i]
-        cp(TestImages.image_path(filename), joinpath(root, "images", filename), force=true)
-    end
-
     # Generate and save thumbnails
     mkpath(joinpath(root, "thumbnails"))
     HEIGHT = 200
@@ -73,12 +66,12 @@ function generate_imagelist(root)
 
     for i in 1:N
         filename = filenames[i]
-        path_orginal = joinpath("images", filename)
+        path_original = "https://raw.githubusercontent.com/JuliaImages/TestImages.jl/images/images/" * filename
         path_thumbnail = joinpath("thumbnails", basename(paths[i]))
         color = colors[i]
         size = sizes[i]
         # TODO: fill the `note` section referring to metadata.yml
-        script *= "| ![]($(path_thumbnail)) | [`$(filename)`]($(path_orginal)) | `$(color)` | `$(size)` |  |\n"
+        script *= "| ![]($(path_thumbnail)) | [`$(filename)`]($(path_original)) | `$(color)` | `$(size)` |  |\n"
     end
 
     write(joinpath(root, "imagelist.md"), script)

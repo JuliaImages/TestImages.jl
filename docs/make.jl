@@ -21,5 +21,8 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/JuliaImages/TestImages.jl"
+    repo="github.com/JuliaImages/TestImages.jl",
+    # A lot of thumbnails are generated, so compressing history in `gh-pages` avoids infinite
+    # storage increasement.
+    forcepush=true,
 )
