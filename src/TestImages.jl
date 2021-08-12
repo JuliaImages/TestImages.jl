@@ -10,12 +10,17 @@ export testimage
 
 const imagedir = joinpath(dirname(@__FILE__), "..", "images")
 
-REPO_URL = "https://github.com/JuliaImages/TestImages.jl/blob/gh-pages/images/"
+REPO_URL = "https://github.com/JuliaImages/TestImages.jl/blob/images/images/"
 
-remotefiles = [
+const remotefiles = [
+    "airplaneF16.tiff",
     "autumn_leaves.png" ,
+    "barbara_color.png",
+    "barbara_gray_512.bmp",
     "blobs.gif" ,
     "cameraman.tif" ,
+    "chelsea.png" ,
+    "coffee.png" ,
     "earth_apollo17.jpg" ,
     "fabio_color_256.png" ,
     "fabio_color_512.png" ,
@@ -37,13 +42,21 @@ remotefiles = [
     "mandril_gray.tif" ,
     "mandrill.tiff" ,
     "m51.tif" ,
+    "monarch_color.png",
+    "monarch_color_256.png",
     "moonsurface.tiff" ,
+    "morphology_test_512.tiff",
     "mountainstream.png" ,
     "mri-stack.tif" ,
     "multi-channel-time-series.ome.tif" ,
     "peppers_color.tif" ,
     "peppers_gray.tif" ,
     "pirate.tif" ,
+    "resolution_test_512.tif" ,
+    "resolution_test_1920.tif" ,
+    "simple_3d_ball.tif" ,
+    "simple_3d_psf.tif" ,
+    "sudoku.tiff",
     "toucan.png" ,
     "walkbridge.tif" ,
     "woman_blonde.tif" ,
