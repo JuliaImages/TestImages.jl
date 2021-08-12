@@ -19,11 +19,11 @@ open(tarball, write=true) do io
     close(Tar.create(tree_path, compress(io)))
 end
 
-# Check the filenames in images/metadata.toml
+# Check the names in images/metadata.toml
 metadata = TOML.parsefile(joinpath("images","metadata.toml"))
-filenames_meta = [img["name"] for img in metadata["images"]]
-filenames_dir = [splitext(name)[1] for name in readdir("images")]
-@assert filenames_meta ⊆ filenames_dir
+names_meta = [img["name"] for img in metadata["images"]]
+names_dir = [splitext(file)[1] for file in readdir("images")]
+@assert names_meta ⊆ names_dir
 
 # Generate hashes
 tree_hash = open(io -> Tar.tree_hash(decompress(io)), tarball)
