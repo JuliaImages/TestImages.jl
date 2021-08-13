@@ -83,10 +83,7 @@ function extract_name(metadata, filename)
 
     name = splitext(filename)[1]
     j = findfirst(data -> data["name"]==name, metadata)
-    if isnothing(j)
-        # If full name isn't available, a filename with link to its original image will be returned
-        return link
-    else
+    if !isnothing(j)
         # If full name is available, full name in bold and its link will be returned
         data = metadata[j]
         if "fullname" in keys(data)
@@ -94,6 +91,8 @@ function extract_name(metadata, filename)
             return "**$(fullname)**, " * link
         end
     end
+    # If full name isn't available, a filename with link to its original image will be returned
+    return link
 end
 
 function extract_note(metadata, filename)
