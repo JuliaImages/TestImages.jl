@@ -8,7 +8,7 @@ The following steps should be followed to add an image/imageset to the repositor
 1. Check the images for copyright or license issues before adding images.
 1. Do `git checkout images` in your local repository folder. `Pkg.dir("TestImages")` gives the location of the repo.
 1. Add the image locally to the `images/` folder on your machine.
-1. If you have metadata, a more common name, a url for the source or an author, you can add that to the `metadata.yml`.
+1. If you have metadata, a more common name, a url for the source or an author, you can add them to the `images/metadata.toml`.
 1. Do `git add --all` to stage the changes for a commit.
 1. `git commit -m "Adds <filename> to the repository from link <link>"`
 1. `git push <fork> images`
