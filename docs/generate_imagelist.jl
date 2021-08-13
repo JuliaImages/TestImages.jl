@@ -52,7 +52,12 @@ function generate_imagelist(root)
 
     # Load the metadata
     path_toml = TestImages.image_path("metadata.toml")
-    metadata = Dict{String,String}.(TOML.parsefile(path_toml)["images"])
+    metadata = if isfile(path_toml)
+        Dict{String,String}.(TOML.parsefile(path_toml)["images"])
+    else
+        # backward compat: old artifacts doesn't have "metadata.toml"
+        Dict{String,String}[]
+    end
 
     # Generate markdown, including a table of images
     script = """
@@ -76,11 +81,12 @@ function generate_imagelist(root)
 end
 
 function extract_name(metadata, filename)
-    # Extract name section in the table
-
     path_original = "https://raw.githubusercontent.com/JuliaImages/TestImages.jl/images/images/" * filename
     link = "[`$(filename)`]($(path_original))"
 
+    isempty(metadata) && return link
+
+    # Extract name section in the table
     name = splitext(filename)[1]
     j = findfirst(data -> data["name"]==name, metadata)
     if !isnothing(j)
@@ -96,6 +102,7 @@ function extract_name(metadata, filename)
 end
 
 function extract_note(metadata, filename)
+    isempty(metadata) && return ""
     # Extract note section in the table
 
     name = splitext(filename)[1]
