@@ -43,7 +43,10 @@ A detailed guide on contributing to TestImages.jl can be found in the documentat
 
 ## Related packages
 
-The
+* The
+[MLDatasets.jl](https://github.com/JuliaML/MLDatasets.jl)
+package includes several image collections.
+* The
 [ImagePhantoms](https://github.com/JuliaImageRecon/ImagePhantoms.jl)
 package has additional versions of the Shepp-Logan phantom,
 as well as other phantoms like focus charts,
