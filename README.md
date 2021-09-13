@@ -41,6 +41,17 @@ For users with Julia < v1.3.0, TestImages v0.6.z will still be under maintenance
 
 A detailed guide on contributing to TestImages.jl can be found in the documentation mentioned above.
 
+## Related packages
+
+* The
+[MLDatasets.jl](https://github.com/JuliaML/MLDatasets.jl)
+package includes several image collections.
+* The
+[ImagePhantoms](https://github.com/JuliaImageRecon/ImagePhantoms.jl)
+package has additional versions of the Shepp-Logan phantom,
+as well as other phantoms like focus charts,
+and can compute sinograms and spectra of such phantoms.
+
 <!-- URLS -->
 
 [pkgeval-img]: https://juliaci.github.io/NanosoldierReports/pkgeval_badges/T/TestImages.svg
