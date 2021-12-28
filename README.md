@@ -41,6 +41,15 @@ For users with Julia < v1.3.0, TestImages v0.6.z will still be under maintenance
 
 A detailed guide on contributing to TestImages.jl can be found in the documentation mentioned above.
 
+## Deprecation of the lena image
+
+Although the "lena" image is used very widely as a "standard" test image, it is not recommended anymore for non-technical reasons.
+The "lena" image is still kept here only for archive purpose and is likely to be removed in future releases. See also
+[scikit-image#1855](https://github.com/scikit-image/scikit-image/issues/1855) and
+[#72](https://github.com/JuliaImages/TestImages.jl/issues/72) for more details.
+
+As an alternative, you can choose from `"fabio_*"` (e.g., `testimage("fabio_color_512")`), `"chelsea"` and other similar images. 
+
 ## Related packages
 
 * The
