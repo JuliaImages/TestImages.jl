@@ -28,7 +28,7 @@ makedocs(;
     format=format,
     pages=[
         "Home" => "index.md",
-        "List of images" =>
+        "Image database" =>
             [
                 "imagelist.md",
                 "imagelist_dip3e.md"

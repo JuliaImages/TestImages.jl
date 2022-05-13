@@ -34,10 +34,10 @@ img = testimage_dip3e("wirebond-mask") # same as above
 phantom = TestImages.shepp_logan(256) # generate the Shepp-Logan phantom image
 ```
 
-There is also `testimage_dip3e` that loads image for the DIP3E textbook, "Digital Image Processing,
-3rd edition" by Rafael C. Gonzalez and Richard E. Woods. Permission is required from the owner of a
-© image if the image is used for other than personal educational or research purposes. See
-[copyright file](https://www.imageprocessingplace.com/DIP-3E/dip3e_copyrights.htm).
+`testimage_dip3e` loads image for the DIP3E textbook, "Digital Image Processing, 3rd edition" by
+Rafael C. Gonzalez and Richard E. Woods. Permission is required from the owner of a © image if the
+image is used for other than personal educational or research purposes. See [copyright
+file](https://www.imageprocessingplace.com/DIP-3E/dip3e_copyrights.htm).
 
 Images will be automatically downloaded into artifact folders when you load the image for the first time.
 
