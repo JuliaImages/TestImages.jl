@@ -4,6 +4,7 @@
 
 ```@docs
 testimage
+testimage_dip3e
 TestImages.shepp_logan
 ```
 

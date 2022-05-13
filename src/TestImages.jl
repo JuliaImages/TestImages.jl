@@ -6,7 +6,9 @@ using ColorTypes
 using ColorTypes.FixedPointNumbers
 const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
 
-export testimage
+export testimage, testimage_dip3e
+
+include("testimage_dip3e.jl")
 
 # TODO: export shepp_logan when we remove Images.shepp_logan
 # https://github.com/JuliaImages/Images.jl/pull/904
@@ -97,6 +99,7 @@ function testimage(filename; download_only::Bool = false, ops...)
 
     download_only && return imagefile
 
+    @debug "load image: $(basename(imagefile))"
     img = load(imagefile; ops...)
     if basename(imagefile) == "mri-stack.tif"
         # orientation is posterior-right-superior,
