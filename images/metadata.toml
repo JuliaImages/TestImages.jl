@@ -104,3 +104,159 @@ author = "Ashwani Rathee"
 [[images]]
 name = "walkbridge"
 url = "http://sipi.usc.edu/database/database.php?volume=misc&image=22#top"
+
+[[images]]
+name = "bark_512"
+fullname = "Brodatz - Bark (D12)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "beach_sand_512"
+fullname = "Brodatz - Beach sand (D29)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "brick_wall_512"
+fullname = "Brodatz - Brick wall (D94)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "grass_512"
+fullname = "Brodatz - Grass (D9)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "herringbone_weave_512"
+fullname = "Brodatz - Herringbone weave (D15)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "pigskin_512"
+fullname = "Brodatz - Pigskin (D92)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "plastic_bubbles_512"
+fullname = ""
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "calf_leather_512"
+fullname = "Brodatz - Pressed calf leather (D24)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "raffia_512"
+fullname = "Brodatz - Raffia (D84)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "straw_512"
+fullname = "Brodatz - Plastic bubbles (D112)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "water_512"
+fullname = "Brodatz - Water (D38)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "wood_grain_512"
+fullname = "Brodatz - Wood grain (D68)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "woolen_cloth_512"
+fullname = "Brodatz - Woolen cloth (D19)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "bark_he_512"
+fullname = "Brodatz - Bark (D12) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "beach_sand_he_512"
+fullname = "Brodatz - Beach sand (D29) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "brick_wall_he_512"
+fullname = "Brodatz - Brick wall (D94) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "grass_he_512"
+fullname = "Brodatz - Grass (D9) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "herringbone_weave_he_512"
+fullname = "Brodatz - Herringbone weave (D15) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "pigskin_he_512"
+fullname = "Brodatz - Pigskin (D92) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "plastic_bubbles_he_512"
+fullname = "Brodatz - Plastic bubbles (D112) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "calf_leather_he_512"
+fullname = "Brodatz - Pressed calf leather (D24) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "raffia_he_512"
+fullname = "Brodatz - Raffia (D84) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "straw_he_512"
+fullname = "Brodatz - Plastic bub Histogram Equalizedbles (D112)"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "water_he_512"
+fullname = "Brodatz - Water (D38) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "wood_grain_he_512"
+fullname = "Brodatz - Wood grain (D68) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
+
+[[images]]
+name = "woolen_cloth_he_512"
+fullname = "Brodatz - Woolen cloth (D19) Histogram Equalized"
+author = "Phil Brodatz"
+url = "https://sipi.usc.edu/database/database.php?volume=textures"
