@@ -1,10 +1,10 @@
 [images]
-git-tree-sha1 = "e752bdc739f34d02e79c7fa834bc2f2e0d71c7e0"
+git-tree-sha1 = "27a4c26bcdd47eb717bee089ec231a899cb8ef69"
 lazy = true
 
     [[images.download]]
-    sha256 = "e34b7292ed927ec7fe7a6d9f20f2cb29d14d57db1cce5553a1c5c75ce383c38c"
-    url = "https://github.com/JuliaImages/TestImages.jl/releases/download/v1.6.1-artifacts/images.tar.gz"
+    sha256 = "90834d5320612a1e84b4dd5d3809c5a77fb146c371dcd270bdd474395eddf74a"
+    url = "https://github.com/JuliaImages/TestImages.jl/releases/download/v1.7.0-artifacts/images.tar.gz"
 
 [images_dip3e]
 git-tree-sha1 = "9006b49888eceebbde587484f1e5573956f8448b"
