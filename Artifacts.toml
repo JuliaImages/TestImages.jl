@@ -5,3 +5,11 @@ lazy = true
     [[images.download]]
     sha256 = "90834d5320612a1e84b4dd5d3809c5a77fb146c371dcd270bdd474395eddf74a"
     url = "https://github.com/JuliaImages/TestImages.jl/releases/download/v1.7.0-artifacts/images.tar.gz"
+
+[images_dip3e]
+git-tree-sha1 = "9006b49888eceebbde587484f1e5573956f8448b"
+lazy = true
+
+    [[images_dip3e.download]]
+    sha256 = "1449c5a5b5a4fb30889493ec057fffcb0170ec855a2d01e1a77fdc265db91db1"
+    url = "https://github.com/JuliaImages/TestImages.jl/releases/download/v1.7.0-artifacts/images_dip3e.tar.gz"

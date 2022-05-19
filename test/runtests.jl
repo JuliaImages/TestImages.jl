@@ -5,9 +5,13 @@ using ImageContrastAdjustment
 
 using TestImages: shepp_logan # will be exported in future release
 
-# make sure all files in remotefiles are valid image files
+# make sure all remotefiles are valid image files
 foreach(TestImages.remotefiles) do img_name
     img = testimage(img_name)
+    @test isa(img, AbstractArray{<:Colorant})
+end
+foreach(TestImages.remotefiles_dip3e) do img_name
+    img = testimage_dip3e(img_name)
     @test isa(img, AbstractArray{<:Colorant})
 end
 

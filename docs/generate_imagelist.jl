@@ -1,9 +1,11 @@
-function generate_imagelist(root)
-    filenames = sort(TestImages.remotefiles, by=x->lowercase(splitext(x)[1]))
+function generate_imagelist(root, (testimage, database), out_file, preface)
+    filenames = sort(database, by=x->lowercase(splitext(x)[1]))
 
     N = length(filenames)
     names = [splitext(filename)[1] for filename in filenames]
-    imgs = [testimage(filename) for filename in filenames]
+    imgs = map(filenames) do f
+        float.(testimage(f))
+    end
     colors = [eltype(img) for img in imgs]
     sizes = size.(imgs)
     paths = ones(String,N)
@@ -11,23 +13,26 @@ function generate_imagelist(root)
     # Generate and save thumbnails
     mkpath(joinpath(root, "thumbnails"))
     HEIGHT = 200
+    WIDTH = 200
+    cal_ratio(img) = minimum((HEIGHT, WIDTH)./size(img))
     for i in 1:N
-
         if length(sizes[i]) == 2
             # Normal image
-            width = round(Int, HEIGHT / sizes[i][1] * sizes[i][2])
-            thumbnail = imresize(imgs[i], HEIGHT, width)
+            img = imgs[i]
+            thumbnail = clamp01nan!(imresize(img, ratio=cal_ratio(img)))
             path = joinpath(root, "thumbnails", names[i]*".png")
             paths[i] = path
             save(path, thumbnail)
 
         elseif length(sizes[i]) == 3
             # 3-dimensional image, will be converted animated gif
-            width = round(Int, HEIGHT / sizes[i][1] * sizes[i][2])
             img = collect(imgs[i])
-            thumbnail = Array{eltype(img),3}(undef,HEIGHT,width,sizes[i][3])
+            slice = @view img[:, :, 1]
+            sz = size(imresize(slice, ratio=cal_ratio(slice)))
+            thumbnail = Array{floattype(eltype(img)),3}(undef,sz...,sizes[i][3])
             for j in 1:sizes[i][3]
-                thumbnail[:,:,j] = imresize(img[:,:,j], HEIGHT, width)
+                slice = @view img[:,:,j]
+                thumbnail[:,:,j] = clamp01nan!(imresize(slice, ratio=cal_ratio(slice)))
             end
             path = joinpath(root, "thumbnails", names[i]*".gif")
             paths[i] = path
@@ -36,12 +41,14 @@ function generate_imagelist(root)
 
         elseif length(sizes[i]) == 4
             # multi-channel image, will be converted animated gif
-            width = round(Int, HEIGHT / sizes[i][1] * sizes[i][2])
             n_frames = sizes[i][3] * sizes[i][4]
             img = reshape(permutedims(collect(imgs[i]),(1,2,4,3)),sizes[i][1],sizes[i][2],n_frames)
-            thumbnail = Array{eltype(img),3}(undef,HEIGHT,width,n_frames)
+            slice = @view img[:, :, 1]
+            sz = size(imresize(slice, ratio=cal_ratio(slice)))
+            thumbnail = Array{floattype(eltype(img)),3}(undef,sz...,n_frames)
             for j in 1:n_frames
-                thumbnail[:,:,j] = imresize(img[:,:,j], HEIGHT, width)
+                slice = @view img[:, :, j]
+                thumbnail[:,:,j] = clamp01nan!(imresize(slice, ratio=cal_ratio(slice)))
             end
             path = joinpath(root, "thumbnails", names[i]*".gif")
             paths[i] = path
@@ -61,7 +68,7 @@ function generate_imagelist(root)
 
     # Generate markdown, including a table of images
     script = """
-    # [List of test images](@id imagelist)
+    $(preface)
 
     | Image | Name | Color | Size | Note |
     | :---- | :--- | :---- | :--- | :--- |
@@ -70,14 +77,19 @@ function generate_imagelist(root)
     for i in 1:N
         filename = filenames[i]
         path_thumbnail = joinpath("thumbnails", basename(paths[i]))
-        color = colors[i]
+        color = base_colorant_type(colors[i])
         size = sizes[i]
-        name = extract_name(metadata, filename)
+        name = if testimage == TestImages.testimage
+            extract_name(metadata, filename)
+        else
+            "\"$filename\""
+        end
         note = extract_note(metadata, filename)
+        # FIXME(johnnychen94): some files are now shown properly because of double underscore, e.g., testimage_dip3e("Fig0622")
         script *= "| ![]($(path_thumbnail)) | $(name) | `$(color)` | `$(size)` | $(note) |\n"
     end
 
-    write(joinpath(root, "imagelist.md"), script)
+    write(joinpath(root, out_file), script)
 end
 
 function extract_name(metadata, filename)

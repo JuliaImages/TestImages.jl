@@ -28,8 +28,16 @@ img = testimage("cameraman.tif") # fullname
 img = testimage("cameraman") # without extension works
 img = testimage("cam") # with only partial name also works
 
+img = testimage_dip3e("fig0905") # load figure 9.5: wirebond-mask from the DIP3E textbook
+img = testimage_dip3e("wirebond-mask") # same as above
+
 phantom = TestImages.shepp_logan(256) # generate the Shepp-Logan phantom image
 ```
+
+`testimage_dip3e` loads an image from the DIP3E textbook, "Digital Image Processing, 3rd edition" by
+Rafael C. Gonzalez and Richard E. Woods. Permission is required from the owner of a © image if the
+image is used for other than personal educational or research purposes. See [copyright
+file](https://www.imageprocessingplace.com/DIP-3E/dip3e_copyrights.htm).
 
 Images will be automatically downloaded into artifact folders when you load the image for the first time.
 
