@@ -19,7 +19,7 @@ pkg> add TestImages # hit ] to enter Pkg mode
 This package currently contains two main functions:
 
 - `testimage` that loads existing image files. Check the [list of test images](@ref imagelist) for what's available.
-- `testimage_dip3e` that loads image for the DIP3E textbook. "Digital Image Processing, 3rd edition"
+- `testimage_dip3e` that loads an image from the DIP3E textbook. "Digital Image Processing, 3rd edition"
   by Rafael C. Gonzalez and Richard E. Woods.
 - `shepp_logan` that generates a phantom image, which is used very widely in image reconstruction experiments.
 
