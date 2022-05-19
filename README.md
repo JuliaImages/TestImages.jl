@@ -17,7 +17,11 @@ Full documentation and description of the images available in TestImages.jl can 
 
 ## Installation
 
-`TestImages` doesn't support image IO by itself, which means you need to install some backends on your choice, e.g., [ImageMagick.jl](https://github.com/JuliaIO/ImageMagick.jl), [QuartzImageIO](https://github.com/JuliaIO/QuartzImageIO.jl), [OMETIFF.jl](https://github.com/tlnagy/OMETIFF.jl).
+Just like all normal Julia packages, you can use Pkg to install it:
+
+```julia
+pkg> add TestImages # hit ] to enter Pkg mode
+```
 
 ## Usage
 
