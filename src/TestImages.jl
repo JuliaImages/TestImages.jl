@@ -119,7 +119,7 @@ $(reduce((x, y)->join([x, "\n - \`\"", splitext(y)[1], "\"\`"]), sort(remotefile
 function testimage(filename; download_only::Bool = false, nowarn=false, ops...)
     imagefile = image_path(full_imagename(filename))
 
-    if nowarn || startswith(basename(imagefile), "lena_")
+    if !nowarn && startswith(basename(imagefile), "lena_")
         @warn "Usage of \"lena\" is not recommended, and the image may be removed in a later release. See https://womenlovetech.com/losing-lena-why-we-need-to-remove-one-image-and-end-techs-original-sin/ for more information." maxlog=1
     end
 
