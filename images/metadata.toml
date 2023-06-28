@@ -49,6 +49,12 @@ name = "lena_gray_512"
 url = "http://www.ece.rice.edu/~wakin/images/lenaTest3.jpg"
 
 [[images]]
+name = "lilly"
+fullname = "lilly"
+url = "https://zenodo.org/record/8091212"
+author = "Julian Samaroo"
+
+[[images]]
 name = "lighthouse"
 url = "http://r0k.us/graphics/kodak/kodak/kodim21.png"
 
