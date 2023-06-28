@@ -51,7 +51,7 @@ url = "http://www.ece.rice.edu/~wakin/images/lenaTest3.jpg"
 [[images]]
 name = "lilly"
 fullname = "lilly"
-url = "https://github.com/maleadt/juliacon21-gpu_workshop/blob/main/case_studies/Lilly_hat.jpg"
+url = "https://zenodo.org/record/8091212"
 author = "Julian Samaroo"
 
 [[images]]
