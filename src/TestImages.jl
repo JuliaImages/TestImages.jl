@@ -51,6 +51,7 @@ const remotefiles = [
     "lena_gray_256.tif",
     "lena_gray_512.tif",
     "lighthouse.png",
+    "lilly.jpg",
     "livingroom.tif",
     "m51.tif",
     "mandril_color.tif",
