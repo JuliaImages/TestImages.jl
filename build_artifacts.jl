@@ -35,9 +35,8 @@ if !haskey(ENV, "GITHUB_ACTIONS")
 else
     # set the output value of the current stage in Github Action
     # https://docs.github.com/en/actions/reference/workflow-commands-for-github-actions#setting-an-output-parameter
-    run(`echo`)
-    run(`echo "::set-output name=tarball_hash::$tarball_hash"`)
-    run(`echo`)
-    run(`echo "::set-output name=tree_hash::$tree_hash"`)
-    run(`echo`)
+    open(get(GITHUB_ENV, "GITHUB_OUTPUT", "output.txt"), "a") do io
+        println(io, "tarball_hash=$tarball_hash")
+        println(io, "tree_hash=$tree_hash")
+    end
 end
