@@ -2,7 +2,8 @@ on:
   push:
     tags:
       - 'v*-artifacts'
-  
+  workflow_dispatch:
+
 name: Upload Artifacts
 
 jobs:
@@ -17,7 +18,7 @@ jobs:
         env:
           cache-name: cache-artifacts
         with:
-          path: ~/.julia/artifacts 
+          path: ~/.julia/artifacts
           key: ${{ runner.os }}-test-${{ env.cache-name }}-${{ hashFiles('**/Project.toml') }}
           restore-keys: |
             ${{ runner.os }}-test-${{ env.cache-name }}-
@@ -26,6 +27,7 @@ jobs:
       - name: Build artifacts
         id: build_artifacts
         run: |
+          julia --color=yes -e "using InteractiveUtils; versioninfo()"
           julia --color=yes --project=. -e "using Pkg; Pkg.instantiate()"
           julia --color=yes --project=. build_artifacts.jl
       - name: Create Release
@@ -50,12 +52,12 @@ jobs:
           draft: false
           prerelease: false
       - name: Upload Release Asset
-        id: upload-release-asset 
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ./images.tar.gz
           asset_name: images.tar.gz
           asset_content_type: application/x-tar
