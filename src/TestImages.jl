@@ -4,6 +4,7 @@ using Pkg.Artifacts
 using StringDistances
 using ColorTypes
 using ColorTypes.FixedPointNumbers
+using NDTools: reorient
 const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
 
 export testimage, testimage_dip3e
@@ -197,14 +198,22 @@ MRI version [2] is calculated.
 
 [3] Jain, Anil K. Fundamentals of digital image processing. _Prentice-Hall, Inc._, (1989): 439.
 """
-function shepp_logan(N::Int, M::Int; high_contrast::Bool=true, highContrast=nothing)
+function shepp_logan(N::Int, M::Int, O::Int; high_contrast::Bool=true, highContrast=nothing)
+    #println("shepp_logan function called")
     if !isnothing(highContrast)
         # compatbitity to Images.shepp_logan
         # remove this when we remove Images.shepp_logan
         Base.depwarn("keyword `highContrast` is deprecated, use `high_contrast` instead.", :shepp_logan)
     end
-    x = Array(range(-1, stop=1, length=M)')
-    y = Array(range(1, stop=-1, length=N))
+    x = reorient(Array(range(-1, stop=1, length=M)), Val(1))
+    y = reorient(Array(range(-1, stop=1, length=N)), Val(2))
+    if O == 1
+        z = [0.0]
+    else
+        z = reorient(Array(range(-1, stop=1, length=O)), Val(3))
+        #println("z: ", z)
+    end
+    #z = Array(range(-1, stop=1, length=O))
 
     # follow the notation in [2]
     A = high_contrast ?
@@ -215,11 +224,15 @@ function shepp_logan(N::Int, M::Int; high_contrast::Bool=true, highContrast=noth
           # [3] p.439 uses the following setting for the CT version
           # and is used by MATLAB's built-in `phantom` with method `Shepp-Logan`
         # (1.0 , -0.98  , -0.02 , -0.02 , 0.01, 0.01 ,  0.01 ,  0.01 ,  0.01 ,  0.01 )
-    x₀ =  (0.0 ,  0.0   ,  0.22 , -0.22 , 0.0 , 0.0  ,  0.0  , -0.08 ,  0.0  ,  0.06 )
-    y₀ =  (0.0 , -0.0184,  0.0  ,  0.0  , 0.35, 0.1  , -0.1  , -0.605, -0.605, -0.605)
-    a  =  (0.69,  0.6624,  0.11 ,  0.16 , 0.21, 0.046,  0.046,  0.046,  0.023,  0.023)
-    b  =  (0.92,  0.874 ,  0.31 ,  0.41 , 0.25, 0.046,  0.046,  0.023,  0.023,  0.046)
-    ϕ  =  (0.0 ,  0.0   , -18.0 ,  18.0 , 0.0 , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
+    x₀ =  (0.0 ,  0.0   ,  0.22 , -0.22 , 0.0   , 0.0  ,  0.0  , -0.08 ,  0.0  ,  0.06 )
+    y₀ =  (0.0 , -0.0184,  0.0  ,  0.0  , 0.35  , 0.1  , -0.1  , -0.605, -0.605, -0.605)
+    z₀ =  (0.0 ,  0.0   ,  0.0  ,  0.0  , -0.15 , 0.25 ,  0.25 ,  0.0  ,  0.0  ,  0.0)
+    a  =  (0.69,  0.6624,  0.11 ,  0.16 , 0.21  , 0.046,  0.046,  0.046,  0.023,  0.023)
+    b  =  (0.92,  0.874 ,  0.31 ,  0.41 , 0.25  , 0.046,  0.046,  0.023,  0.023,  0.046)
+    c  =  (0.81,  0.780 ,  0.22 ,  0.28 , 0.41  , 0.050,  0.050,  0.050,  0.020,  0.020)
+    ϕ  =  (0.0 ,  0.0   , -18.0 ,  18.0 , 0.0   , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
+    θ  =  (0.0 ,  0.0   ,   0.0 ,   0.0 , 0.0   , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
+    ψ  =  (0.0 ,  0.0   ,  10.0 ,  10.0 , 0.0   , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
 
     function _ellipse(dx, dy, a, b, sin_ϕ, cos_ϕ)
         tx = cos_ϕ * dx + sin_ϕ * dy
@@ -230,21 +243,44 @@ function shepp_logan(N::Int, M::Int; high_contrast::Bool=true, highContrast=noth
         # a faster case when ϕ == 0.0
         abs2(dx * b) + abs2(dy * a) < (a * b)^2
     end
+    
+    function _ellipse3d(dx, dy, dz, a, b, c, R)
 
-    P = zeros(Gray{Float64}, N, M)
+        # Apply rotation to the point 
+        tx, ty, tz = R * [dx, dy, dz]
+
+        # 3D ellipse equation 
+        (abs2(tx / a) + abs2(ty / b) + abs2(tz / c)) <= 1.0
+    end
+
+    P = zeros(Float64, N, M, O)
     for l = 1:length(ϕ)
-        if ϕ[l] == 0.0
-            @. P = gray(P) + A[l] * _ellipse(x - x₀[l], y - y₀[l], a[l], b[l])
+        if ϕ[l] == 0.0 && θ[l] == 0.0 && ψ[l] == 0.0
+            # Rotation matrix using Z-Y-Z Euler angles
+            R = [
+                1.0  0.0  0.0;
+                0.0  1.0  0.0;
+                0.0  0.0  1.0 
+            ]
+            P .+= A[l] .* _ellipse3d.(x .- x₀[l], y .- y₀[l], z .- z₀[l], a[l], b[l], c[l], Ref(R))
         else
-            sin_ϕ, cos_ϕ = sincosd(ϕ[l])
-            @. P = gray(P) + A[l] * _ellipse(x - x₀[l], y - y₀[l], a[l], b[l], sin_ϕ, cos_ϕ)
+            sinϕ, cosϕ = sincosd(ϕ[l])
+            sinθ, cosθ = sincosd(θ[l])
+            sinψ, cosψ = sincosd(ψ[l])
+            # Rotation matrix using Z-Y-Z Euler angles
+            R = [
+                (cosψ*cosϕ-cosθ*sinψ*sinϕ)  (cosψ*sinϕ+cosθ*sinψ*cosϕ)  (sinψ*sinθ);
+                (-sinψ*cosϕ-cosθ*cosψ*sinϕ) (-sinψ*sinϕ+cosθ*cosψ*cosϕ) (cosψ*sinθ);
+                (sinθ*sinϕ)                     (-sinθ*cosϕ)                   (cosθ) 
+            ]
+            P .+= A[l] .* _ellipse3d.(x .- x₀[l], y .- y₀[l], z .- z₀[l], a[l], b[l], c[l], Ref(R))
         end
     end
 
     return P
 end
-shepp_logan(N::Integer, M::Integer; kwargs...) = shepp_logan(Int(N), Int(M); kwargs...)
-shepp_logan(N::Integer; kwargs...) = shepp_logan(Int(N), Int(N); kwargs...)
+shepp_logan(N::Integer, M::Integer; kwargs...) = shepp_logan(Int(N), Int(M), 1; kwargs...)
+shepp_logan(N::Integer; kwargs...) = shepp_logan(Int(N), Int(N), 1; kwargs...)
 
 function _precompile_()
     ccall(:jl_generating_output, Cint, ()) == 1 || return nothing
