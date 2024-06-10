@@ -11,6 +11,7 @@ ImageMagick = "6218d12a-5da1-5696-b52f-db25d2ecc6d1"
 NDTools = "98581153-e998-4eef-8d0d-5ec2c052313d"
 OffsetArrays = "6fe1bfb0-de20-5000-8ca7-80f57d26f881"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 StringDistances = "88034a9c-02f8-509d-84a9-84ec65e18404"
 
 [compat]

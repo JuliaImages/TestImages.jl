@@ -5,6 +5,7 @@ using StringDistances
 using ColorTypes
 using ColorTypes.FixedPointNumbers
 using NDTools: reorient
+using StaticArrays
 const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
 
 export testimage, testimage_dip3e
@@ -243,40 +244,42 @@ function shepp_logan(N::Int, M::Int, O::Int; high_contrast::Bool=true, highContr
         # a faster case when ϕ == 0.0
         abs2(dx * b) + abs2(dy * a) < (a * b)^2
     end
-    
-    function _ellipse3d(dx, dy, dz, a, b, c, R)
 
-        # Apply rotation to the point 
-        tx, ty, tz = R * [dx, dy, dz]
+    # multiplying the transformation matrix
+    @inline function mat_mul(t::SVector{N, T}, matrix_c::SMatrix{N,N,T})::SVector{N,T} where {N,T}
+        return matrix_c * t
+    end
 
-        # 3D ellipse equation 
-        (abs2(tx / a) + abs2(ty / b) + abs2(tz / c)) <= 1.0
+    @inline function mat_div(t::SVector{N, T}, v::SVector{N, T})::SVector{N,T} where {N,T}
+        return t ./ v
+    end
+    @inline function sum_abs2(t::SVector{N, T})::T where {N,T}
+        return sum(abs2.(t))
     end
 
     P = zeros(Float64, N, M, O)
     for l = 1:length(ϕ)
         if ϕ[l] == 0.0 && θ[l] == 0.0 && ψ[l] == 0.0
             # Rotation matrix using Z-Y-Z Euler angles
-            R = [
+            R = SMatrix{3, 3, Float64}([
                 1.0  0.0  0.0;
                 0.0  1.0  0.0;
                 0.0  0.0  1.0 
-            ]
-            P .+= A[l] .* _ellipse3d.(x .- x₀[l], y .- y₀[l], z .- z₀[l], a[l], b[l], c[l], Ref(R))
+            ])
         else
             sinϕ, cosϕ = sincosd(ϕ[l])
             sinθ, cosθ = sincosd(θ[l])
             sinψ, cosψ = sincosd(ψ[l])
             # Rotation matrix using Z-Y-Z Euler angles
-            R = [
+            R = SMatrix{3, 3, Float64}([
                 (cosψ*cosϕ-cosθ*sinψ*sinϕ)  (cosψ*sinϕ+cosθ*sinψ*cosϕ)  (sinψ*sinθ);
                 (-sinψ*cosϕ-cosθ*cosψ*sinϕ) (-sinψ*sinϕ+cosθ*cosψ*cosϕ) (cosψ*sinθ);
                 (sinθ*sinϕ)                     (-sinθ*cosϕ)                   (cosθ) 
-            ]
-            P .+= A[l] .* _ellipse3d.(x .- x₀[l], y .- y₀[l], z .- z₀[l], a[l], b[l], c[l], Ref(R))
+            ])
         end
-    end
+        P .+= A[l] .* (sum_abs2.(mat_div.(mat_mul.(SVector{3, Float64}.(x .- x₀[l], y .- y₀[l], z .- z₀[l]), Ref(R)) , Ref(SVector{3, Float64}(a[l], b[l], c[l])))) .<= 1.0)
 
+    end
     return P
 end
 shepp_logan(N::Integer, M::Integer; kwargs...) = shepp_logan(Int(N), Int(M), 1; kwargs...)
