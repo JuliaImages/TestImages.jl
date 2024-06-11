@@ -206,8 +206,8 @@ function shepp_logan(::Type{T}, N::Int, M::Int, O::Int; high_contrast::Bool=true
         # remove this when we remove Images.shepp_logan
         Base.depwarn("keyword `highContrast` is deprecated, use `high_contrast` instead.", :shepp_logan)
     end
-    x = reorient(Array(range(-1, stop=1, length=M)), Val(1))
-    y = reorient(Array(range(-1, stop=1, length=N)), Val(2))
+    x = reorient(Array(range(-1, stop=1, length=N)), Val(1))
+    y = reorient(Array(range(-1, stop=1, length=M)), Val(2))
     if O == 1
         z = [0.0]
     else
@@ -265,15 +265,16 @@ function shepp_logan(::Type{T}, N::Int, M::Int, O::Int; high_contrast::Bool=true
                 (-sinψ*cosϕ-cosθ*cosψ*sinϕ) (-sinψ*sinϕ+cosθ*cosψ*cosϕ) (cosψ*sinθ);
                 (sinθ*sinϕ)                     (-sinθ*cosϕ)                   (cosθ) 
             ])
+
         end
-        P .+= A[l] .* (sum_abs2.(mat_div.(mat_mul.(SVector{3, Float64}.(x .- x₀[l], y .- y₀[l], z .- z₀[l]), Ref(R)) , Ref(SVector{3, Float64}(a[l], b[l], c[l])))) .<= 1.0)
+        P .+= T(A[l]) .* (sum_abs2.(mat_div.(mat_mul.(SVector{3, Float64}.(x .- x₀[l], y .- y₀[l], z .- z₀[l]), Ref(R)) , Ref(SVector{3, Float64}(a[l], b[l], c[l])))) .<= 1.0)
 
     end
     return P
 end
-shepp_logan(N::Integer, M::Integer, O::Integer; kwargs...) = shepp_logan(Float64, Int(N), Int(M), Int(O); kwargs...)
-shepp_logan(N::Integer, M::Integer; kwargs...) = shepp_logan(Float64, Int(N), Int(M), 1; kwargs...)[:, :, 1]
-shepp_logan(N::Integer; kwargs...) = shepp_logan(Float64, Int(N), Int(N), 1; kwargs...)[:, :, 1]
+shepp_logan(N::Integer, M::Integer, O::Integer; kwargs...) = shepp_logan(Gray{Float64}, Int(N), Int(M), Int(O); kwargs...)
+shepp_logan(N::Integer, M::Integer; kwargs...) = shepp_logan(Gray{Float64}, Int(N), Int(M), 1; kwargs...)[:, :, 1]
+shepp_logan(N::Integer; kwargs...) = shepp_logan(Gray{Float64}, Int(N), Int(N), 1; kwargs...)[:, :, 1]
 
 function _precompile_()
     ccall(:jl_generating_output, Cint, ()) == 1 || return nothing
