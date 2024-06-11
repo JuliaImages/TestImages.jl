@@ -199,7 +199,7 @@ MRI version [2] is calculated.
 
 [3] Jain, Anil K. Fundamentals of digital image processing. _Prentice-Hall, Inc._, (1989): 439.
 """
-function shepp_logan(N::Int, M::Int, O::Int; high_contrast::Bool=true, highContrast=nothing)
+function shepp_logan(::Type{T}, N::Int, M::Int, O::Int; high_contrast::Bool=true, highContrast=nothing) where {T}
     #println("shepp_logan function called")
     if !isnothing(highContrast)
         # compatbitity to Images.shepp_logan
@@ -235,17 +235,6 @@ function shepp_logan(N::Int, M::Int, O::Int; high_contrast::Bool=true, highContr
     θ  =  (0.0 ,  0.0   ,   0.0 ,   0.0 , 0.0   , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
     ψ  =  (0.0 ,  0.0   ,  10.0 ,  10.0 , 0.0   , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
 
-    function _ellipse(dx, dy, a, b, sin_ϕ, cos_ϕ)
-        tx = cos_ϕ * dx + sin_ϕ * dy
-        ty = sin_ϕ * dx - cos_ϕ * dy
-        abs2(tx * b) + abs2(ty * a) < (a * b)^2
-    end
-    function _ellipse(dx, dy, a, b)
-        # a faster case when ϕ == 0.0
-        abs2(dx * b) + abs2(dy * a) < (a * b)^2
-    end
-
-    # multiplying the transformation matrix
     @inline function mat_mul(t::SVector{N, T}, matrix_c::SMatrix{N,N,T})::SVector{N,T} where {N,T}
         return matrix_c * t
     end
@@ -257,20 +246,20 @@ function shepp_logan(N::Int, M::Int, O::Int; high_contrast::Bool=true, highContr
         return sum(abs2.(t))
     end
 
-    P = zeros(Float64, N, M, O)
+    P = zeros(T, N, M, O)
     for l = 1:length(ϕ)
         if ϕ[l] == 0.0 && θ[l] == 0.0 && ψ[l] == 0.0
-            # Rotation matrix using Z-Y-Z Euler angles
+
             R = SMatrix{3, 3, Float64}([
-                1.0  0.0  0.0;
-                0.0  1.0  0.0;
-                0.0  0.0  1.0 
+               1.0  0.0  0.0;
+               0.0  1.0  0.0;
+               0.0  0.0  1.0 
             ])
         else
             sinϕ, cosϕ = sincosd(ϕ[l])
             sinθ, cosθ = sincosd(θ[l])
             sinψ, cosψ = sincosd(ψ[l])
-            # Rotation matrix using Z-Y-Z Euler angles
+
             R = SMatrix{3, 3, Float64}([
                 (cosψ*cosϕ-cosθ*sinψ*sinϕ)  (cosψ*sinϕ+cosθ*sinψ*cosϕ)  (sinψ*sinθ);
                 (-sinψ*cosϕ-cosθ*cosψ*sinϕ) (-sinψ*sinϕ+cosθ*cosψ*cosϕ) (cosψ*sinθ);
@@ -282,8 +271,9 @@ function shepp_logan(N::Int, M::Int, O::Int; high_contrast::Bool=true, highContr
     end
     return P
 end
-shepp_logan(N::Integer, M::Integer; kwargs...) = shepp_logan(Int(N), Int(M), 1; kwargs...)
-shepp_logan(N::Integer; kwargs...) = shepp_logan(Int(N), Int(N), 1; kwargs...)
+shepp_logan(N::Integer, M::Integer, O::Integer; kwargs...) = shepp_logan(Float64, Int(N), Int(M), Int(O); kwargs...)
+shepp_logan(N::Integer, M::Integer; kwargs...) = shepp_logan(Float64, Int(N), Int(M), 1; kwargs...)[:, :, 1]
+shepp_logan(N::Integer; kwargs...) = shepp_logan(Float64, Int(N), Int(N), 1; kwargs...)[:, :, 1]
 
 function _precompile_()
     ccall(:jl_generating_output, Cint, ()) == 1 || return nothing
