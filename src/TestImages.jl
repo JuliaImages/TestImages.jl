@@ -4,6 +4,8 @@ using Pkg.Artifacts
 using StringDistances
 using ColorTypes
 using ColorTypes.FixedPointNumbers
+using NDTools: reorient
+using StaticArrays
 const artifacts_toml = abspath(joinpath(@__DIR__, "..", "Artifacts.toml"))
 
 export testimage, testimage_dip3e
@@ -197,14 +199,22 @@ MRI version [2] is calculated.
 
 [3] Jain, Anil K. Fundamentals of digital image processing. _Prentice-Hall, Inc._, (1989): 439.
 """
-function shepp_logan(N::Int, M::Int; high_contrast::Bool=true, highContrast=nothing)
+function shepp_logan(::Type{T}, N::Int, M::Int, O::Int; high_contrast::Bool=true, highContrast=nothing) where {T}
+    #println("shepp_logan function called")
     if !isnothing(highContrast)
         # compatbitity to Images.shepp_logan
         # remove this when we remove Images.shepp_logan
         Base.depwarn("keyword `highContrast` is deprecated, use `high_contrast` instead.", :shepp_logan)
     end
-    x = Array(range(-1, stop=1, length=M)')
-    y = Array(range(1, stop=-1, length=N))
+    x = reorient(Array(range(-1, stop=1, length=N)), Val(1))
+    y = reorient(Array(range(-1, stop=1, length=M)), Val(2))
+    if O == 1
+        z = [0.0]
+    else
+        z = reorient(Array(range(-1, stop=1, length=O)), Val(3))
+        #println("z: ", z)
+    end
+    #z = Array(range(-1, stop=1, length=O))
 
     # follow the notation in [2]
     A = high_contrast ?
@@ -215,36 +225,56 @@ function shepp_logan(N::Int, M::Int; high_contrast::Bool=true, highContrast=noth
           # [3] p.439 uses the following setting for the CT version
           # and is used by MATLAB's built-in `phantom` with method `Shepp-Logan`
         # (1.0 , -0.98  , -0.02 , -0.02 , 0.01, 0.01 ,  0.01 ,  0.01 ,  0.01 ,  0.01 )
-    x₀ =  (0.0 ,  0.0   ,  0.22 , -0.22 , 0.0 , 0.0  ,  0.0  , -0.08 ,  0.0  ,  0.06 )
-    y₀ =  (0.0 , -0.0184,  0.0  ,  0.0  , 0.35, 0.1  , -0.1  , -0.605, -0.605, -0.605)
-    a  =  (0.69,  0.6624,  0.11 ,  0.16 , 0.21, 0.046,  0.046,  0.046,  0.023,  0.023)
-    b  =  (0.92,  0.874 ,  0.31 ,  0.41 , 0.25, 0.046,  0.046,  0.023,  0.023,  0.046)
-    ϕ  =  (0.0 ,  0.0   , -18.0 ,  18.0 , 0.0 , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
+    x₀ =  (0.0 ,  0.0   ,  0.22 , -0.22 , 0.0   , 0.0  ,  0.0  , -0.08 ,  0.0  ,  0.06 )
+    y₀ =  (0.0 , -0.0184,  0.0  ,  0.0  , 0.35  , 0.1  , -0.1  , -0.605, -0.605, -0.605)
+    z₀ =  (0.0 ,  0.0   ,  0.0  ,  0.0  , -0.15 , 0.25 ,  0.25 ,  0.0  ,  0.0  ,  0.0)
+    a  =  (0.69,  0.6624,  0.11 ,  0.16 , 0.21  , 0.046,  0.046,  0.046,  0.023,  0.023)
+    b  =  (0.92,  0.874 ,  0.31 ,  0.41 , 0.25  , 0.046,  0.046,  0.023,  0.023,  0.046)
+    c  =  (0.81,  0.780 ,  0.22 ,  0.28 , 0.41  , 0.050,  0.050,  0.050,  0.020,  0.020)
+    ϕ  =  (0.0 ,  0.0   , -18.0 ,  18.0 , 0.0   , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
+    θ  =  (0.0 ,  0.0   ,   0.0 ,   0.0 , 0.0   , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
+    ψ  =  (0.0 ,  0.0   ,  10.0 ,  10.0 , 0.0   , 0.0  ,  0.0  ,  0.0  ,  0.0  ,  0.0  )
 
-    function _ellipse(dx, dy, a, b, sin_ϕ, cos_ϕ)
-        tx = cos_ϕ * dx + sin_ϕ * dy
-        ty = sin_ϕ * dx - cos_ϕ * dy
-        abs2(tx * b) + abs2(ty * a) < (a * b)^2
-    end
-    function _ellipse(dx, dy, a, b)
-        # a faster case when ϕ == 0.0
-        abs2(dx * b) + abs2(dy * a) < (a * b)^2
+    @inline function mat_mul(t::SVector{N, T}, matrix_c::SMatrix{N,N,T})::SVector{N,T} where {N,T}
+        return matrix_c * t
     end
 
-    P = zeros(Gray{Float64}, N, M)
+    @inline function mat_div(t::SVector{N, T}, v::SVector{N, T})::SVector{N,T} where {N,T}
+        return t ./ v
+    end
+    @inline function sum_abs2(t::SVector{N, T})::T where {N,T}
+        return sum(abs2.(t))
+    end
+
+    P = zeros(T, N, M, O)
     for l = 1:length(ϕ)
-        if ϕ[l] == 0.0
-            @. P = gray(P) + A[l] * _ellipse(x - x₀[l], y - y₀[l], a[l], b[l])
-        else
-            sin_ϕ, cos_ϕ = sincosd(ϕ[l])
-            @. P = gray(P) + A[l] * _ellipse(x - x₀[l], y - y₀[l], a[l], b[l], sin_ϕ, cos_ϕ)
-        end
-    end
+        if ϕ[l] == 0.0 && θ[l] == 0.0 && ψ[l] == 0.0
 
+            R = SMatrix{3, 3, Float64}([
+               1.0  0.0  0.0;
+               0.0  1.0  0.0;
+               0.0  0.0  1.0 
+            ])
+        else
+            sinϕ, cosϕ = sincosd(ϕ[l])
+            sinθ, cosθ = sincosd(θ[l])
+            sinψ, cosψ = sincosd(ψ[l])
+
+            R = SMatrix{3, 3, Float64}([
+                (cosψ*cosϕ-cosθ*sinψ*sinϕ)  (cosψ*sinϕ+cosθ*sinψ*cosϕ)  (sinψ*sinθ);
+                (-sinψ*cosϕ-cosθ*cosψ*sinϕ) (-sinψ*sinϕ+cosθ*cosψ*cosϕ) (cosψ*sinθ);
+                (sinθ*sinϕ)                     (-sinθ*cosϕ)                   (cosθ) 
+            ])
+
+        end
+        P .+= T(A[l]) .* (sum_abs2.(mat_div.(mat_mul.(SVector{3, Float64}.(x .- x₀[l], y .- y₀[l], z .- z₀[l]), Ref(R)) , Ref(SVector{3, Float64}(a[l], b[l], c[l])))) .<= 1.0)
+
+    end
     return P
 end
-shepp_logan(N::Integer, M::Integer; kwargs...) = shepp_logan(Int(N), Int(M); kwargs...)
-shepp_logan(N::Integer; kwargs...) = shepp_logan(Int(N), Int(N); kwargs...)
+shepp_logan(N::Integer, M::Integer, O::Integer; kwargs...) = shepp_logan(Gray{Float64}, Int(N), Int(M), Int(O); kwargs...)
+shepp_logan(N::Integer, M::Integer; kwargs...) = shepp_logan(Gray{Float64}, Int(N), Int(M), 1; kwargs...)[:, :, 1]
+shepp_logan(N::Integer; kwargs...) = shepp_logan(Gray{Float64}, Int(N), Int(N), 1; kwargs...)[:, :, 1]
 
 function _precompile_()
     ccall(:jl_generating_output, Cint, ()) == 1 || return nothing
